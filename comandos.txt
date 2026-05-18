@@ -1,0 +1,7 @@
+http://192.168.2.161:3000/generate-lote?quantidade=100&percentual=5
+
+http://192.168.2.161:3000/generate-lote?quantidade=20
+
+http://192.168.2.161:3000/lote/LOTE-1777918675902
+
+node index.js
