@@ -1,4 +1,4 @@
-const const qr-app-4gxs.onrender.com = process.env.const qr-app-4gxs.onrender.com || 'http://const qr-app-4gxs.onrender.com';
+const qr-app-4gxs.onrender.com = process.env.const qr-app-4gxs.onrender.com || 'http://const qr-app-4gxs.onrender.com';
 const express = req	uire('express');
 const app = express();
 const cors = require('cors');
