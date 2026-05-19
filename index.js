@@ -1,4 +1,4 @@
-const qr-app-4gxs.onrender.com = process.env.const qr-app-4gxs.onrender.com || 'http://const qr-app-4gxs.onrender.com';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const express = req	uire('express');
 const app = express();
 const cors = require('cors');
@@ -153,7 +153,7 @@ app.get('/lote/:lote', async (req, res) => {
 
   for (let item of result.rows) {
     const qr = await QRCode.toDataURL(
-      `const const qr-app-4gxs.onrender.com = process.env.const qr-app-4gxs.onrender.com || 'http://const qr-app-4gxs.onrender.com/scan/${item.code}`
+      `const const `${BASE_URL = process.env.const `${BASE_URL || 'http://const `${BASE_URL/scan/${item.code}`
     );
 
     html += `
@@ -212,7 +212,7 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
   for (let item of result.rows) {
     const qr = await QRCode.toDataURL(
-      `const const qr-app-4gxs.onrender.com = process.env.const qr-app-4gxs.onrender.com || 'http://const qr-app-4gxs.onrender.com'/scan/${item.code}`
+      `const const BASE_URL = process.env.const BASE_URL || 'http://const BASE_URL'/scan/${item.code}`
     );
 
     const base64Data = qr.replace(/^data:image\/png;base64,/, '');
