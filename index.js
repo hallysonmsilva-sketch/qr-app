@@ -1,4 +1,4 @@
-const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
+const BASE_URL = 'https://qr-app-4gxs.onrender.com';
 const express = req	uire('express');
 const app = express();
 const cors = require('cors');
