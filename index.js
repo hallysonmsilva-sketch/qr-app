@@ -153,8 +153,8 @@ app.get('/lote/:lote', async (req, res) => {
 
   for (let item of result.rows) {
     const qr = await QRCode.toDataURL(
-      `const const `${BASE_URL = process.env.const `${BASE_URL || 'http://const `${BASE_URL/scan/${item.code}`
-    );
+  `${BASE_URL}/scan/${item.code}`
+);
 
     html += `
       <div class="item">
@@ -212,8 +212,8 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
   for (let item of result.rows) {
     const qr = await QRCode.toDataURL(
-      `const const BASE_URL = process.env.const BASE_URL || 'http://const BASE_URL'/scan/${item.code}`
-    );
+  `${BASE_URL}/scan/${item.code}`
+);
 
     const base64Data = qr.replace(/^data:image\/png;base64,/, '');
     const imgBuffer = Buffer.from(base64Data, 'base64');
