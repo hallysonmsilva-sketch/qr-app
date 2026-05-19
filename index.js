@@ -152,7 +152,7 @@ app.get('/lote/:lote', async (req, res) => {
 
   for (let item of result.rows) {
     const qr = await QRCode.toDataURL(
-      `http://192.168.2.161:3000/scan/${item.code}`
+      `const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';/scan/${item.code}`
     );
 
     html += `
@@ -211,7 +211,7 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
   for (let item of result.rows) {
     const qr = await QRCode.toDataURL(
-      `http://192.168.2.161:3000/scan/${item.code}`
+      `const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';/scan/${item.code}`
     );
 
     const base64Data = qr.replace(/^data:image\/png;base64,/, '');
@@ -389,6 +389,8 @@ app.get('/scan/:code', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor rodando em http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log('Servidor rodando');
 });
