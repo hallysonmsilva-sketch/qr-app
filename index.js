@@ -44,59 +44,42 @@ app.get('/', async (req, res) => {
 ========================================= */
 app.get('/generate-lote', async (req, res) => {
 
-  const quantidade = parseInt(req.query.quantidade) || 100;
-  const percentual = parseFloat(req.query.percentual) || 10;
+  const quantidade =
+    parseInt(req.query.quantidade) || 100;
 
-let lista = [];
+  const premios =
+    parseInt(req.query.premios) || 0;
 
-// ======================================
-// PRÊMIO 1
-// ======================================
+  const tipo =
+    req.query.tipo || 'premio';
 
-const premio1 = 5;
+  const descricao =
+    req.query.descricao || 'PRÊMIO';
 
-for (let i = 0; i < premio1; i++) {
+  const lote = 'LOTE-' + Date.now();
 
-  lista.push({
-    tipo: 'premio_1',
-    descricao_premio: '1 Fardo de Refrigerante'
-  });
+  let lista = [];
 
-}
+  // =====================================
+  // PREMIADOS
+  // =====================================
 
-// ======================================
-// PRÊMIO 2
-// ======================================
+  for (let i = 0; i < premios; i++) {
 
-const premio2 = 2;
+    lista.push({
+      tipo: tipo,
+      descricao_premio: descricao
+    });
 
-for (let i = 0; i < premio2; i++) {
+  }
 
-  lista.push({
-    tipo: 'premio_2',
-    descricao_premio: '1 Churrasqueira'
-  });
-
-}
-
-// ======================================
-// NÃO PREMIADOS
-// ======================================
-
-const restante =
-  quantidade - premio1 - premio2;
-
-for (let i = 0; i < restante; i++) {
-
-  lista.push({
-    tipo: 'nao_premio',
-    descricao_premio: null
-  });
-
-}
-
+  // =====================================
   // NÃO PREMIADOS
-  for (let i = totalPremios; i < quantidade; i++) {
+  // =====================================
+
+  const restante = quantidade - premios;
+
+  for (let i = 0; i < restante; i++) {
 
     lista.push({
       tipo: 'nao_premio',
@@ -105,10 +88,16 @@ for (let i = 0; i < restante; i++) {
 
   }
 
+  // =====================================
   // EMBARALHAR
+  // =====================================
+
   lista.sort(() => Math.random() - 0.5);
 
+  // =====================================
   // INSERIR
+  // =====================================
+
   for (let item of lista) {
 
     let inserted = false;
@@ -138,16 +127,20 @@ for (let i = 0; i < restante; i++) {
         inserted = true;
 
       } catch (err) {
-        // se repetir código tenta novamente
+        // tenta novamente se repetir código
       }
+
     }
+
   }
 
   res.json({
     mensagem: 'Lote criado com sucesso',
     lote,
     quantidade,
-    premios: premio1 + premio2
+    premios,
+    tipo,
+    descricao
   });
 
 });
