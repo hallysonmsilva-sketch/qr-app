@@ -245,7 +245,7 @@ app.get('/lote/:lote', async (req, res) => {
 
         <div class="texto">
           Aponte a câmera do seu celular<br>
-          e ganhe prêmios instantâneos
+          e garanta seu prêmio
         </div>
 
       </div>
@@ -426,7 +426,7 @@ app.get('/scan/:code', async (req, res) => {
     );
 
     // PREMIADO
-    if (qr.tipo === 'premio') {
+    if (qr.tipo === 'nao_premio') {
 
       return res.send(`
       <html>
