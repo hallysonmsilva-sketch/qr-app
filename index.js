@@ -47,23 +47,53 @@ app.get('/generate-lote', async (req, res) => {
   const quantidade = parseInt(req.query.quantidade) || 100;
   const percentual = parseFloat(req.query.percentual) || 10;
 
-  const totalPremios = Math.floor(
-    (quantidade * percentual) / 100
-  );
+let lista = [];
 
-  const lote = 'LOTE-' + Date.now();
+// ======================================
+// PRÊMIO 1
+// ======================================
 
-  let lista = [];
+const premio1 = 5;
 
-  // PREMIADOS
-  for (let i = 0; i < totalPremios; i++) {
+for (let i = 0; i < premio1; i++) {
 
-    lista.push({
-      tipo: 'premio',
-      descricao_premio: 'PRÊMIO TESTE'
-    });
+  lista.push({
+    tipo: 'premio_1',
+    descricao_premio: '1 Fardo de Refrigerante'
+  });
 
-  }
+}
+
+// ======================================
+// PRÊMIO 2
+// ======================================
+
+const premio2 = 2;
+
+for (let i = 0; i < premio2; i++) {
+
+  lista.push({
+    tipo: 'premio_2',
+    descricao_premio: '1 Churrasqueira'
+  });
+
+}
+
+// ======================================
+// NÃO PREMIADOS
+// ======================================
+
+const restante =
+  quantidade - premio1 - premio2;
+
+for (let i = 0; i < restante; i++) {
+
+  lista.push({
+    tipo: 'nao_premio',
+    descricao_premio: null
+  });
+
+}
 
   // NÃO PREMIADOS
   for (let i = totalPremios; i < quantidade; i++) {
@@ -117,7 +147,7 @@ app.get('/generate-lote', async (req, res) => {
     mensagem: 'Lote criado com sucesso',
     lote,
     quantidade,
-    premios: totalPremios
+    premios: premio1 + premio2
   });
 
 });
