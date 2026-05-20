@@ -1,76 +1,114 @@
 const BASE_URL = 'https://qr-app-4gxs.onrender.com';
-const express = req	uire('express');
+
+const express = require('express');
 const app = express();
+
 const cors = require('cors');
 const db = require('./db');
 const QRCode = require('qrcode');
+const PDFDocument = require('pdfkit');
 
 app.use(cors());
 app.use(express.json());
 
-// 🔹 Gerador de código único
+/* =========================================
+   GERADOR DE CÓDIGO ÚNICO
+========================================= */
 function gerarCodigo() {
   return Math.random().toString(36).substring(2, 10).toUpperCase();
 }
 
-// 🔹 HOME (teste)
+/* =========================================
+   HOME
+========================================= */
 app.get('/', async (req, res) => {
   try {
     const result = await db.query('SELECT NOW()');
+
     res.json({
-      message: 'Banco conectado 🚀',
-      time: result.rows[0]
+      status: 'online',
+      banco: 'conectado',
+      horario: result.rows[0]
     });
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({
+      erro: err.message
+    });
   }
 });
 
-// 🔥 GERAR LOTE COM % DE PRÊMIO
+/* =========================================
+   GERAR LOTE
+========================================= */
 app.get('/generate-lote', async (req, res) => {
+
   const quantidade = parseInt(req.query.quantidade) || 100;
   const percentual = parseFloat(req.query.percentual) || 10;
 
-  const totalPremios = Math.floor((quantidade * percentual) / 100);
+  const totalPremios = Math.floor(
+    (quantidade * percentual) / 100
+  );
+
   const lote = 'LOTE-' + Date.now();
 
   let lista = [];
 
-  // premiados
+  // PREMIADOS
   for (let i = 0; i < totalPremios; i++) {
+
     lista.push({
       tipo: 'premio',
       descricao_premio: 'PRÊMIO TESTE'
     });
+
   }
 
-  // não premiados
+  // NÃO PREMIADOS
   for (let i = totalPremios; i < quantidade; i++) {
+
     lista.push({
       tipo: 'nao_premio',
       descricao_premio: null
     });
+
   }
 
-  // embaralhar
+  // EMBARALHAR
   lista.sort(() => Math.random() - 0.5);
 
+  // INSERIR
   for (let item of lista) {
-    let code;
+
     let inserted = false;
 
     while (!inserted) {
-      code = gerarCodigo();
+
+      const code = gerarCodigo();
 
       try {
+
         await db.query(
-          `INSERT INTO qrcodes (code, tipo, descricao_premio, usado, lote)
-           VALUES ($1, $2, $3, false, $4)`,
-          [code, item.tipo, item.descricao_premio, lote]
+          `
+          INSERT INTO qrcodes
+          (code, tipo, descricao_premio, usado, lote)
+
+          VALUES
+          ($1, $2, $3, false, $4)
+          `,
+          [
+            code,
+            item.tipo,
+            item.descricao_premio,
+            lote
+          ]
         );
+
         inserted = true;
+
       } catch (err) {
-        // tenta outro código
+        // se repetir código tenta novamente
       }
     }
   }
@@ -81,10 +119,14 @@ app.get('/generate-lote', async (req, res) => {
     quantidade,
     premios: totalPremios
   });
+
 });
 
-// 🔹 VISUALIZAR LOTE (IMPRIMIR)
+/* =========================================
+   VISUALIZAR LOTE
+========================================= */
 app.get('/lote/:lote', async (req, res) => {
+
   const { lote } = req.params;
 
   const result = await db.query(
@@ -94,8 +136,11 @@ app.get('/lote/:lote', async (req, res) => {
 
   let html = `
   <html>
+
   <head>
+
     <style>
+
       body {
         margin: 0;
         padding: 20px;
@@ -112,6 +157,7 @@ app.get('/lote/:lote', async (req, res) => {
       .item {
         width: 6cm;
         height: 7.5cm;
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -121,7 +167,9 @@ app.get('/lote/:lote', async (req, res) => {
       .qr-box {
         width: 6cm;
         height: 6cm;
+
         background: white;
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -134,37 +182,49 @@ app.get('/lote/:lote', async (req, res) => {
 
       .texto {
         margin-top: 5px;
+
         font-size: 12px;
         text-align: center;
         font-weight: bold;
       }
 
       @media print {
+
         body {
           margin: 0;
         }
+
       }
+
     </style>
+
   </head>
 
   <body>
+
     <div class="grid">
   `;
 
   for (let item of result.rows) {
-    const qr = await QRCode.toDataURL(
-  `${BASE_URL}/scan/${item.code}`
-);
+
+    const url = `${BASE_URL}/scan/${item.code.trim()}`;
+
+    console.log('QR URL:', url);
+
+    const qr = await QRCode.toDataURL(url);
 
     html += `
       <div class="item">
+
         <div class="qr-box">
           <img src="${qr}" />
         </div>
+
         <div class="texto">
           Aponte a câmera do seu celular<br>
           e ganhe prêmios instantâneos
         </div>
+
       </div>
     `;
   }
@@ -172,16 +232,19 @@ app.get('/lote/:lote', async (req, res) => {
   html += `
     </div>
   </body>
+
   </html>
   `;
 
   res.send(html);
+
 });
 
-const PDFDocument = require('pdfkit');
-
-// 🔥 GERAR PDF DO LOTE
+/* =========================================
+   PDF DO LOTE
+========================================= */
 app.get('/lote-pdf/:lote', async (req, res) => {
+
   const { lote } = req.params;
 
   const result = await db.query(
@@ -194,15 +257,22 @@ app.get('/lote-pdf/:lote', async (req, res) => {
     margin: 20
   });
 
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', `inline; filename=${lote}.pdf`);
+  res.setHeader(
+    'Content-Type',
+    'application/pdf'
+  );
+
+  res.setHeader(
+    'Content-Disposition',
+    `inline; filename=${lote}.pdf`
+  );
 
   doc.pipe(res);
 
   const startX = 40;
   const startY = 40;
 
-  const qrSize = 120; // ~5cm
+  const qrSize = 120;
   const boxSize = 150;
 
   let x = startX;
@@ -211,23 +281,41 @@ app.get('/lote-pdf/:lote', async (req, res) => {
   let count = 0;
 
   for (let item of result.rows) {
-    const qr = await QRCode.toDataURL(
-  `${BASE_URL}/scan/${item.code}`
-);
 
-    const base64Data = qr.replace(/^data:image\/png;base64,/, '');
-    const imgBuffer = Buffer.from(base64Data, 'base64');
+    const url = `${BASE_URL}/scan/${item.code.trim()}`;
 
-    // fundo branco
-    doc.rect(x, y, boxSize, boxSize).fill('#FFFFFF');
+    const qr = await QRCode.toDataURL(url);
+
+    const base64Data = qr.replace(
+      /^data:image\/png;base64,/,
+      ''
+    );
+
+    const imgBuffer = Buffer.from(
+      base64Data,
+      'base64'
+    );
+
+    // FUNDO
+    doc.rect(
+      x,
+      y,
+      boxSize,
+      boxSize
+    ).fill('#FFFFFF');
 
     // QR
-    doc.image(imgBuffer, x + 15, y + 15, {
-      width: qrSize,
-      height: qrSize
-    });
+    doc.image(
+      imgBuffer,
+      x + 15,
+      y + 15,
+      {
+        width: qrSize,
+        height: qrSize
+      }
+    );
 
-    // texto
+    // TEXTO
     doc
       .fillColor('black')
       .fontSize(8)
@@ -243,155 +331,184 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
     count++;
 
-    // posicionamento grid
+    // GRID
     if (count % 3 === 0) {
-  x = startX;
-  y += 200;
-} else {
-  x += 170;
-}
 
-    // nova página
+      x = startX;
+      y += 200;
+
+    } else {
+
+      x += 170;
+
+    }
+
+    // NOVA PÁGINA
     if (y > 700) {
+
       doc.addPage();
+
       x = startX;
       y = startY;
+
     }
   }
 
   doc.end();
+
 });
 
-// 🔹 SCAN (ABRE PELO QR)
+/* =========================================
+   SCAN QR
+========================================= */
 app.get('/scan/:code', async (req, res) => {
+
   const { code } = req.params;
 
   try {
+
     const result = await db.query(
       'SELECT * FROM qrcodes WHERE code = $1',
       [code]
     );
 
+    // NÃO EXISTE
     if (result.rows.length === 0) {
-      return res.send('Código inválido');
+
+      return res.send(`
+        <h1>Código inválido</h1>
+      `);
+
     }
 
     const qr = result.rows[0];
 
+    // JÁ USADO
     if (qr.usado) {
-      return res.send('Código já utilizado');
+
+      return res.send(`
+        <h1>Código já utilizado</h1>
+      `);
+
     }
 
+    // MARCAR COMO USADO
     await db.query(
-      'UPDATE qrcodes SET usado = true WHERE code = $1',
+      `
+      UPDATE qrcodes
+      SET usado = true
+      WHERE code = $1
+      `,
       [code]
     );
 
+    // PREMIADO
     if (qr.tipo === 'premio') {
 
-      res.send(`
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    @keyframes cair {
-      0% { transform: translateY(-50px); opacity:0; }
-      100% { transform: translateY(100vh); opacity:1; }
-    }
-  </style>
-</head>
+      return res.send(`
+      <html>
 
-<body style="
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg, #00c6ff, #0072ff);
-  font-family:Arial;
-">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        >
+      </head>
 
-  <div style="
-    position:absolute;
-    width:100%;
-    top:0;
-    text-align:center;
-    font-size:30px;
-    animation: cair 2s linear infinite;
-  ">
-    🎉 🎊 🎉 🎊
-  </div>
+      <body style="
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#00c6ff,#0072ff);
+        font-family:Arial;
+      ">
 
-  <div style="
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    width:90%;
-    max-width:350px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  ">
+        <div style="
+          background:white;
+          border-radius:20px;
+          padding:30px;
+          width:90%;
+          max-width:350px;
+          text-align:center;
+        ">
 
-    <img src="https://i.imgur.com/lpQKSAK.png" style="max-width:120px; margin-bottom:20px;">
+          <h1>🎉</h1>
 
-    <h1>🎉</h1>
-    <h2 style="color:#0d47a1;">Parabéns!</h2>
-    <p>Você ganhou:</p>
-    <h3>${qr.descricao_premio}</h3>
+          <h2>Parabéns!</h2>
 
-  </div>
+          <p>Você ganhou:</p>
 
-</body>
-</html>
+          <h3>${qr.descricao_premio}</h3>
+
+        </div>
+
+      </body>
+
+      </html>
       `);
 
-    } else {
-
-      res.send(`
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
-<body style="
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg, #d50000, #ff1744);
-  font-family:Arial;
-">
-
-  <div style="
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    width:90%;
-    max-width:350px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  ">
-
-    <h1>😢</h1>
-    <h2 style="color:#d50000;">Não foi dessa vez</h2>
-    <p>Continue participando!</p>
-
-  </div>
-
-</body>
-</html>
-      `);
     }
+
+    // NÃO PREMIADO
+    return res.send(`
+    <html>
+
+    <head>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+      >
+    </head>
+
+    <body style="
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#d50000,#ff1744);
+      font-family:Arial;
+    ">
+
+      <div style="
+        background:white;
+        border-radius:20px;
+        padding:30px;
+        width:90%;
+        max-width:350px;
+        text-align:center;
+      ">
+
+        <h1>😢</h1>
+
+        <h2>Não foi dessa vez</h2>
+
+        <p>Continue participando!</p>
+
+      </div>
+
+    </body>
+
+    </html>
+    `);
 
   } catch (err) {
+
     console.error(err);
-    res.send('Erro no servidor');
+
+    res.status(500).send('Erro no servidor');
+
   }
+
 });
 
+/* =========================================
+   START
+========================================= */
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log('Servidor rodando');
+  console.log('Servidor rodando na porta', PORT);
 });
