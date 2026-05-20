@@ -60,9 +60,9 @@ app.get('/generate-lote', async (req, res) => {
 
   let lista = [];
 
-  // =====================================
+  // ==========================
   // PREMIADOS
-  // =====================================
+  // ==========================
 
   for (let i = 0; i < premios; i++) {
 
@@ -73,9 +73,9 @@ app.get('/generate-lote', async (req, res) => {
 
   }
 
-  // =====================================
+  // ==========================
   // NÃO PREMIADOS
-  // =====================================
+  // ==========================
 
   const restante = quantidade - premios;
 
@@ -88,24 +88,24 @@ app.get('/generate-lote', async (req, res) => {
 
   }
 
-  // =====================================
+  // ==========================
   // EMBARALHAR
-  // =====================================
+  // ==========================
 
   for (let i = lista.length - 1; i > 0; i--) {
 
-  const j = Math.floor(
-    Math.random() * (i + 1)
-  );
+    const j = Math.floor(
+      Math.random() * (i + 1)
+    );
 
-  [lista[i], lista[j]] =
-    [lista[j], lista[i]];
+    [lista[i], lista[j]] =
+      [lista[j], lista[i]];
 
-}
+  }
 
-  // =====================================
+  // ==========================
   // INSERIR
-  // =====================================
+  // ==========================
 
   for (let item of lista) {
 
@@ -117,13 +117,30 @@ app.get('/generate-lote', async (req, res) => {
 
       try {
 
+        console.log(
+          'SALVANDO:',
+          item.tipo
+        );
+
         await db.query(
           `
           INSERT INTO qrcodes
-          (code, tipo, descricao_premio, usado, lote)
+          (
+            code,
+            tipo,
+            descricao_premio,
+            usado,
+            lote
+          )
 
           VALUES
-          ($1, $2, $3, false, $4)
+          (
+            $1,
+            $2,
+            $3,
+            false,
+            $4
+          )
           `,
           [
             code,
@@ -136,7 +153,9 @@ app.get('/generate-lote', async (req, res) => {
         inserted = true;
 
       } catch (err) {
-        // tenta novamente se repetir código
+
+        console.log(err);
+
       }
 
     }
@@ -153,6 +172,7 @@ app.get('/generate-lote', async (req, res) => {
   });
 
 });
+
 
 /* =========================================
    VISUALIZAR LOTE
@@ -435,7 +455,7 @@ app.get('/scan/:code', async (req, res) => {
     );
 
     // PREMIADO
-    if (qr.tipo === 'nao_premio') {
+    if (qr.tipo !== 'nao_premio') {
 
       return res.send(`
       <html>
