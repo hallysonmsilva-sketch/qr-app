@@ -1103,6 +1103,190 @@ app.post('/resgatar/:voucher', async (req, res) => {
 
 });
 
+/* =========================================
+   PÁGINA SIMPLES GERAR LOTES
+========================================= */
+app.get('/gerar', (req, res) => {
+
+  res.send(`
+  <html>
+
+  <head>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    >
+
+  </head>
+
+  <body style="
+    margin:0;
+    padding:30px;
+    background:#f2f2f2;
+    font-family:Arial;
+  ">
+
+    <div style="
+      max-width:500px;
+      margin:auto;
+    ">
+
+      <!-- GERAR LOTE -->
+
+      <div style="
+        background:white;
+        padding:25px;
+        border-radius:20px;
+        margin-bottom:25px;
+      ">
+
+        <h2>
+          Gerar Lote
+        </h2>
+
+        <form
+          action="/generate-lote"
+          method="GET"
+        >
+
+          <input
+            type="number"
+            name="quantidade"
+            placeholder="Quantidade QR Codes"
+            required
+            style="
+              width:100%;
+              padding:12px;
+              margin-top:10px;
+            "
+          >
+
+          <input
+            type="number"
+            name="premios"
+            placeholder="Quantidade premiados"
+            required
+            style="
+              width:100%;
+              padding:12px;
+              margin-top:10px;
+            "
+          >
+
+          <input
+            type="text"
+            name="tipo"
+            placeholder="Tipo prêmio"
+            required
+            style="
+              width:100%;
+              padding:12px;
+              margin-top:10px;
+            "
+          >
+
+          <input
+            type="text"
+            name="descricao"
+            placeholder="Descrição prêmio"
+            required
+            style="
+              width:100%;
+              padding:12px;
+              margin-top:10px;
+            "
+          >
+
+          <button
+            type="submit"
+            style="
+              width:100%;
+              margin-top:20px;
+              padding:15px;
+              background:#0d47a1;
+              color:white;
+              border:none;
+              border-radius:10px;
+              font-size:16px;
+              cursor:pointer;
+            "
+          >
+            GERAR LOTE
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- ABRIR LOTE -->
+
+      <div style="
+        background:white;
+        padding:25px;
+        border-radius:20px;
+      ">
+
+        <h2>
+          Abrir Lote
+        </h2>
+
+        <form
+          onsubmit="
+            event.preventDefault();
+
+            const lote =
+              document
+                .getElementById('lote')
+                .value;
+
+            window.location =
+              '/lote/' + lote;
+          "
+        >
+
+          <input
+            id="lote"
+            type="text"
+            placeholder="Digite o lote"
+            required
+            style="
+              width:100%;
+              padding:12px;
+              margin-top:10px;
+            "
+          >
+
+          <button
+            type="submit"
+            style="
+              width:100%;
+              margin-top:20px;
+              padding:15px;
+              background:green;
+              color:white;
+              border:none;
+              border-radius:10px;
+              font-size:16px;
+              cursor:pointer;
+            "
+          >
+            ABRIR LOTE
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </body>
+
+  </html>
+  `);
+
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
