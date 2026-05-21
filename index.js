@@ -1151,120 +1151,100 @@ app.get('/gerar', (req, res) => {
       margin:auto;
     ">
 
-      <!-- GERAR LOTE -->
+    <!-- GERAR LOTE -->
 
-      <div style="
-        background:white;
-        padding:25px;
-        border-radius:20px;
-        margin-bottom:25px;
-      ">
+<div style="
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:25px;
+">
 
-        <h2>
-          Gerar Lote
-        </h2>
+  <h2>
+    Gerar Lote
+  </h2>
 
-        <form
-          action="/generate-lote"
-          method="GET"
-        >
+  <form
+    action="/generate-lote"
+    method="GET"
+  >
 
-          <input
-            type="number"
-            name="quantidade"
-            placeholder="Quantidade QR Codes"
-            required
-            style="
-              width:100%;
-              padding:12px;
-              margin-top:10px;
-            "
-          >
+    <input
+      type="number"
+      name="quantidade"
+      placeholder="Quantidade QR Codes"
+      required
+      style="
+        width:100%;
+        padding:12px;
+        margin-top:10px;
+      "
+    >
 
-          <input
-            type="number"
-            name="premios"
-            placeholder="Quantidade premiados"
-            required
-            style="
-              width:100%;
-              padding:12px;
-              margin-top:10px;
-            "
-          >
+    <input
+      type="number"
+      name="premios"
+      placeholder="Quantidade premiados"
+      required
+      style="
+        width:100%;
+        padding:12px;
+        margin-top:10px;
+      "
+    >
 
-         <select
-  name="tipo"
-  required
-  style="
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-  "
->
+    <select
+      name="tipo"
+      required
+      style="
+        width:100%;
+        padding:12px;
+        margin-top:10px;
+      "
+    >
 
-  <option value="">
-    Selecione o prêmio
-  </option>
+      <option value="">
+        Selecione o prêmio
+      </option>
 
-  <option value="premio_1">
-    Voucher R$25
-  </option>
+      <option value="premio_1">
+        Voucher R$25
+      </option>
 
-  <option value="premio_2">
-    Voucher R$50
-  </option>
+      <option value="premio_2">
+        Voucher R$50
+      </option>
 
-  <option value="premio_3">
-    Voucher R$75
-  </option>
+      <option value="premio_3">
+        Voucher R$75
+      </option>
 
-  <option value="premio_4">
-    Voucher R$100
-  </option>
+      <option value="premio_4">
+        Voucher R$100
+      </option>
 
-</select>
-            placeholder="Tipo prêmio"
-            required
-            style="
-              width:100%;
-              padding:12px;
-              margin-top:10px;
-            "
-          >
+    </select>
 
-          <input
-            type="text"
-            name="descricao"
-            placeholder="Descrição prêmio"
-            required
-            style="
-              width:100%;
-              padding:12px;
-              margin-top:10px;
-            "
-          >
+    <button
+      type="submit"
+      style="
+        width:100%;
+        margin-top:20px;
+        padding:15px;
+        background:#0d47a1;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:16px;
+        cursor:pointer;
+      "
+    >
+      GERAR LOTE
+    </button>
 
-          <button
-            type="submit"
-            style="
-              width:100%;
-              margin-top:20px;
-              padding:15px;
-              background:#0d47a1;
-              color:white;
-              border:none;
-              border-radius:10px;
-              font-size:16px;
-              cursor:pointer;
-            "
-          >
-            GERAR LOTE
-          </button>
+  </form>
 
-        </form>
-
-      </div>
+</div>
 
       <!-- ABRIR LOTE -->
 
