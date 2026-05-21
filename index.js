@@ -808,6 +808,35 @@ app.get('/validar/:voucher', async (req, res) => {
                 : 'DISPONÍVEL'
             }
           </p>
+${
+  !qr.resgatado
+    ? `
+      <form
+        method="POST"
+        action="/resgatar/${voucher}"
+      >
+
+        <button
+          type="submit"
+          style="
+            margin-top:20px;
+            width:100%;
+            padding:15px;
+            background:green;
+            color:white;
+            border:none;
+            border-radius:10px;
+            font-size:18px;
+            cursor:pointer;
+          "
+        >
+          CONFIRMAR ENTREGA
+        </button>
+
+      </form>
+    `
+    : ''
+}
 
         </div>
 
@@ -825,6 +854,96 @@ app.get('/validar/:voucher', async (req, res) => {
   }
 
 });
+
+app.post('/resgatar/:voucher', async (req, res) => {
+
+  const { voucher } = req.params;
+
+  try {
+
+    const result = await db.query(
+      `
+      SELECT *
+      FROM qrcodes
+      WHERE voucher = $1
+      `,
+      [voucher]
+    );
+
+    if (result.rows.length === 0) {
+
+      return res.send('Voucher inválido');
+
+    }
+
+    const qr = result.rows[0];
+
+    // já resgatado
+    if (qr.resgatado) {
+
+      return res.send(`
+        <h1>
+          Voucher já resgatado
+        </h1>
+      `);
+
+    }
+
+    // marcar resgatado
+    await db.query(
+      `
+      UPDATE qrcodes
+      SET resgatado = true
+      WHERE voucher = $1
+      `,
+      [voucher]
+    );
+
+    res.send(`
+      <html>
+
+      <body style="
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#f2f2f2;
+        font-family:Arial;
+      ">
+
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:20px;
+          text-align:center;
+          max-width:400px;
+          box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        ">
+
+          <h1>✅</h1>
+
+          <h2>
+            Prêmio entregue com sucesso
+          </h2>
+
+        </div>
+
+      </body>
+
+      </html>
+    `);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.send('Erro no servidor');
+
+  }
+
+});
+
 
 const PORT = process.env.PORT || 3000;
 
