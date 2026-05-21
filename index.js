@@ -61,8 +61,27 @@ app.get('/generate-lote', async (req, res) => {
   const tipo =
     req.query.tipo || 'premio';
 
-  const descricao =
-    req.query.descricao || 'PRÊMIO';
+  let descricao = '';
+
+if (tipo === 'premio_1') {
+  descricao =
+    'Voucher no valor de R$ 25,00 em nossos parceiros';
+}
+
+else if (tipo === 'premio_2') {
+  descricao =
+    'Voucher no valor de R$ 50,00 em nossos parceiros';
+}
+
+else if (tipo === 'premio_3') {
+  descricao =
+    'Voucher no valor de R$ 75,00 em nossos parceiros';
+}
+
+else if (tipo === 'premio_4') {
+  descricao =
+    'Voucher no valor de R$ 100,00 em nossos parceiros';
+}
 
   const lote = 'LOTE-' + Date.now();
 
@@ -1174,9 +1193,37 @@ app.get('/gerar', (req, res) => {
             "
           >
 
-          <input
-            type="text"
-            name="tipo"
+         <select
+  name="tipo"
+  required
+  style="
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+  "
+>
+
+  <option value="">
+    Selecione o prêmio
+  </option>
+
+  <option value="premio_1">
+    Voucher R$25
+  </option>
+
+  <option value="premio_2">
+    Voucher R$50
+  </option>
+
+  <option value="premio_3">
+    Voucher R$75
+  </option>
+
+  <option value="premio_4">
+    Voucher R$100
+  </option>
+
+</select>
             placeholder="Tipo prêmio"
             required
             style="
