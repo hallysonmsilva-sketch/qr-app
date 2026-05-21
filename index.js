@@ -1,4 +1,5 @@
 const BASE_URL = 'https://qr-app-4gxs.onrender.com';
+const SENHA_ADMIN = 'LOJA2026';
 
 const express = require('express');
 const app = express();
@@ -23,7 +24,9 @@ function gerarCodigo() {
    HOME
 ========================================= */
 app.get('/', async (req, res) => {
+
   try {
+
     const result = await db.query('SELECT NOW()');
 
     res.json({
@@ -33,11 +36,15 @@ app.get('/', async (req, res) => {
     });
 
   } catch (err) {
+
     console.error(err);
+
     res.status(500).json({
       erro: err.message
     });
+
   }
+
 });
 
 /* =========================================
@@ -61,10 +68,7 @@ app.get('/generate-lote', async (req, res) => {
 
   let lista = [];
 
-  // ==========================
   // PREMIADOS
-  // ==========================
-
   for (let i = 0; i < premios; i++) {
 
     lista.push({
@@ -74,10 +78,7 @@ app.get('/generate-lote', async (req, res) => {
 
   }
 
-  // ==========================
   // NÃO PREMIADOS
-  // ==========================
-
   const restante = quantidade - premios;
 
   for (let i = 0; i < restante; i++) {
@@ -89,10 +90,7 @@ app.get('/generate-lote', async (req, res) => {
 
   }
 
-  // ==========================
   // EMBARALHAR
-  // ==========================
-
   for (let i = lista.length - 1; i > 0; i--) {
 
     const j = Math.floor(
@@ -104,10 +102,7 @@ app.get('/generate-lote', async (req, res) => {
 
   }
 
-  // ==========================
   // INSERIR
-  // ==========================
-
   for (let item of lista) {
 
     let inserted = false;
@@ -173,7 +168,6 @@ app.get('/generate-lote', async (req, res) => {
   });
 
 });
-
 
 /* =========================================
    VISUALIZAR LOTE
@@ -260,11 +254,11 @@ app.get('/lote/:lote', async (req, res) => {
 
   for (let item of result.rows) {
 
-    const url = `${BASE_URL}/scan/${item.code.trim()}`;
+    const url =
+      `${BASE_URL}/scan/${item.code.trim()}`;
 
-    console.log('QR URL:', url);
-
-    const qr = await QRCode.toDataURL(url);
+    const qr =
+      await QRCode.toDataURL(url);
 
     html += `
       <div class="item">
@@ -335,9 +329,11 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
   for (let item of result.rows) {
 
-    const url = `${BASE_URL}/scan/${item.code.trim()}`;
+    const url =
+      `${BASE_URL}/scan/${item.code.trim()}`;
 
-    const qr = await QRCode.toDataURL(url);
+    const qr =
+      await QRCode.toDataURL(url);
 
     const base64Data = qr.replace(
       /^data:image\/png;base64,/,
@@ -349,7 +345,6 @@ app.get('/lote-pdf/:lote', async (req, res) => {
       'base64'
     );
 
-    // FUNDO
     doc.rect(
       x,
       y,
@@ -357,7 +352,6 @@ app.get('/lote-pdf/:lote', async (req, res) => {
       boxSize
     ).fill('#FFFFFF');
 
-    // QR
     doc.image(
       imgBuffer,
       x + 15,
@@ -368,7 +362,6 @@ app.get('/lote-pdf/:lote', async (req, res) => {
       }
     );
 
-    // TEXTO
     doc
       .fillColor('black')
       .fontSize(8)
@@ -384,7 +377,6 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
     count++;
 
-    // GRID
     if (count % 3 === 0) {
 
       x = startX;
@@ -396,7 +388,6 @@ app.get('/lote-pdf/:lote', async (req, res) => {
 
     }
 
-    // NOVA PÁGINA
     if (y > 700) {
 
       doc.addPage();
@@ -405,6 +396,7 @@ app.get('/lote-pdf/:lote', async (req, res) => {
       y = startY;
 
     }
+
   }
 
   doc.end();
@@ -425,7 +417,6 @@ app.get('/scan/:code', async (req, res) => {
       [code]
     );
 
-    // NÃO EXISTE
     if (result.rows.length === 0) {
 
       return res.send(`
@@ -436,7 +427,6 @@ app.get('/scan/:code', async (req, res) => {
 
     const qr = result.rows[0];
 
-    // JÁ USADO
     if (qr.usado) {
 
       return res.send(`
@@ -445,7 +435,6 @@ app.get('/scan/:code', async (req, res) => {
 
     }
 
-    // MARCAR COMO USADO
     await db.query(
       `
       UPDATE qrcodes
@@ -462,10 +451,12 @@ app.get('/scan/:code', async (req, res) => {
       <html>
 
       <head>
+
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         >
+
       </head>
 
       <body style="
@@ -484,7 +475,7 @@ app.get('/scan/:code', async (req, res) => {
           padding:30px;
           width:90%;
           max-width:350px;
-          text-align:center;	
+          text-align:center;
         ">
 
           <h1>🎉</h1>
@@ -494,68 +485,73 @@ app.get('/scan/:code', async (req, res) => {
           <p>Você ganhou:</p>
 
           <h3>${qr.descricao_premio}</h3>
-<form method="POST" action="/gerar-voucher/${qr.code}">
 
-  <input
-    type="text"
-    name="nome"
-    placeholder="Nome Completo"
-    required
-    style="
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border-radius:10px;
-      border:1px solid #ccc;
-    "
-  >
+          <form
+            method="POST"
+            action="/gerar-voucher/${qr.code}"
+          >
 
-  <input
-    type="text"
-    name="cpf"
-    placeholder="CPF"
-    required
-    style="
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border-radius:10px;
-      border:1px solid #ccc;
-    "
-  >
+            <input
+              type="text"
+              name="nome"
+              placeholder="Nome Completo"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
 
-  <input
-    type="text"
-    name="loja"
-    placeholder="Loja onde comprou"
-    required
-    style="
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border-radius:10px;
-      border:1px solid #ccc;
-    "
-  >
+            <input
+              type="text"
+              name="cpf"
+              placeholder="CPF"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
 
-  <button
-    type="submit"
-    style="
-      margin-top:15px;
-      padding:12px 20px;
-      background:#0d47a1;
-      color:white;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-      width:100%;
-      font-size:16px;
-    "
-  >
-    GERAR VOUCHER
-  </button>
+            <input
+              type="text"
+              name="loja"
+              placeholder="Loja onde comprou"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
 
-</form>
+            <button
+              type="submit"
+              style="
+                margin-top:15px;
+                padding:12px 20px;
+                background:#0d47a1;
+                color:white;
+                border:none;
+                border-radius:10px;
+                cursor:pointer;
+                width:100%;
+                font-size:16px;
+              "
+            >
+              GERAR VOUCHER
+            </button>
+
+          </form>
+
         </div>
 
       </body>
@@ -570,10 +566,12 @@ app.get('/scan/:code', async (req, res) => {
     <html>
 
     <head>
+
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
       >
+
     </head>
 
     <body style="
@@ -619,7 +617,7 @@ app.get('/scan/:code', async (req, res) => {
 });
 
 /* =========================================
-   START
+   GERAR VOUCHER
 ========================================= */
 app.post('/gerar-voucher/:code', async (req, res) => {
 
@@ -646,7 +644,6 @@ app.post('/gerar-voucher/:code', async (req, res) => {
 
     const qr = result.rows[0];
 
-    // impede gerar voucher duas vezes
     if (qr.voucher) {
 
       return res.send(`
@@ -658,7 +655,6 @@ app.post('/gerar-voucher/:code', async (req, res) => {
 
     }
 
-    // gerar voucher
     const voucher =
       'VCHR-' +
       Math.random()
@@ -684,6 +680,11 @@ app.post('/gerar-voucher/:code', async (req, res) => {
         code
       ]
     );
+
+    const qrValidacao =
+      await QRCode.toDataURL(
+        `${BASE_URL}/admin-validar/${voucher}`
+      );
 
     res.send(`
       <html>
@@ -722,8 +723,24 @@ app.post('/gerar-voucher/:code', async (req, res) => {
           </h1>
 
           <p>
-            Apresente este voucher junto
-            com documento oficial com CPF.
+            Apresente este voucher
+            no ponto de troca.
+          </p>
+
+          <img
+            src="${qrValidacao}"
+            style="
+              width:220px;
+              margin-top:20px;
+            "
+          >
+
+          <p style="
+            margin-top:15px;
+            font-size:14px;
+            color:#666;
+          ">
+            QR exclusivo para validação do parceiro
           </p>
 
         </div>
@@ -743,7 +760,10 @@ app.post('/gerar-voucher/:code', async (req, res) => {
 
 });
 
-app.get('/validar/:voucher', async (req, res) => {
+/* =========================================
+   ADMIN VALIDAR - TELA SENHA
+========================================= */
+app.get('/admin-validar/:voucher', async (req, res) => {
 
   const { voucher } = req.params;
 
@@ -760,7 +780,128 @@ app.get('/validar/:voucher', async (req, res) => {
 
     if (result.rows.length === 0) {
 
-      return res.send('Voucher inválido');
+      return res.send(`
+        <h1>Voucher inválido</h1>
+      `);
+
+    }
+
+    res.send(`
+      <html>
+
+      <body style="
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#f2f2f2;
+        font-family:Arial;
+      ">
+
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:20px;
+          width:90%;
+          max-width:400px;
+          text-align:center;
+        ">
+
+          <h2>Área do Parceiro</h2>
+
+          <p>
+            Digite a senha para validar
+            este voucher
+          </p>
+
+          <form
+            method="POST"
+            action="/admin-validar/${voucher}"
+          >
+
+            <input
+              type="password"
+              name="senha"
+              placeholder="Senha"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
+
+            <button
+              type="submit"
+              style="
+                margin-top:15px;
+                width:100%;
+                padding:15px;
+                background:#0d47a1;
+                color:white;
+                border:none;
+                border-radius:10px;
+                font-size:16px;
+                cursor:pointer;
+              "
+            >
+              VALIDAR VOUCHER
+            </button>
+
+          </form>
+
+        </div>
+
+      </body>
+
+      </html>
+    `);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.send('Erro');
+
+  }
+
+});
+
+/* =========================================
+   ADMIN VALIDAR - ÁREA RESTRITA
+========================================= */
+app.post('/admin-validar/:voucher', async (req, res) => {
+
+  const { voucher } = req.params;
+  const { senha } = req.body;
+
+  if (senha !== SENHA_ADMIN) {
+
+    return res.send(`
+      <h1>Senha inválida</h1>
+    `);
+
+  }
+
+  try {
+
+    const result = await db.query(
+      `
+      SELECT *
+      FROM qrcodes
+      WHERE voucher = $1
+      `,
+      [voucher]
+    );
+
+    if (result.rows.length === 0) {
+
+      return res.send(`
+        <h1>Voucher inválido</h1>
+      `);
 
     }
 
@@ -808,35 +949,42 @@ app.get('/validar/:voucher', async (req, res) => {
                 : 'DISPONÍVEL'
             }
           </p>
-${
-  !qr.resgatado
-    ? `
-      <form
-        method="POST"
-        action="/resgatar/${voucher}"
-      >
 
-        <button
-          type="submit"
-          style="
-            margin-top:20px;
-            width:100%;
-            padding:15px;
-            background:green;
-            color:white;
-            border:none;
-            border-radius:10px;
-            font-size:18px;
-            cursor:pointer;
-          "
-        >
-          CONFIRMAR ENTREGA
-        </button>
+          ${
+            !qr.resgatado
+              ? `
+              <form
+                method="POST"
+                action="/resgatar/${voucher}"
+              >
 
-      </form>
-    `
-    : ''
-}
+                <input
+                  type="hidden"
+                  name="senha"
+                  value="${senha}"
+                >
+
+                <button
+                  type="submit"
+                  style="
+                    margin-top:20px;
+                    width:100%;
+                    padding:15px;
+                    background:green;
+                    color:white;
+                    border:none;
+                    border-radius:10px;
+                    font-size:18px;
+                    cursor:pointer;
+                  "
+                >
+                  CONFIRMAR ENTREGA
+                </button>
+
+              </form>
+              `
+              : ''
+          }
 
         </div>
 
@@ -855,9 +1003,21 @@ ${
 
 });
 
+/* =========================================
+   RESGATAR
+========================================= */
 app.post('/resgatar/:voucher', async (req, res) => {
 
   const { voucher } = req.params;
+  const { senha } = req.body;
+
+  if (senha !== SENHA_ADMIN) {
+
+    return res.send(`
+      <h1>Acesso negado</h1>
+    `);
+
+  }
 
   try {
 
@@ -872,13 +1032,14 @@ app.post('/resgatar/:voucher', async (req, res) => {
 
     if (result.rows.length === 0) {
 
-      return res.send('Voucher inválido');
+      return res.send(`
+        <h1>Voucher inválido</h1>
+      `);
 
     }
 
     const qr = result.rows[0];
 
-    // já resgatado
     if (qr.resgatado) {
 
       return res.send(`
@@ -889,7 +1050,6 @@ app.post('/resgatar/:voucher', async (req, res) => {
 
     }
 
-    // marcar resgatado
     await db.query(
       `
       UPDATE qrcodes
@@ -918,7 +1078,6 @@ app.post('/resgatar/:voucher', async (req, res) => {
           border-radius:20px;
           text-align:center;
           max-width:400px;
-          box-shadow:0 10px 30px rgba(0,0,0,0.2);
         ">
 
           <h1>✅</h1>
@@ -938,15 +1097,19 @@ app.post('/resgatar/:voucher', async (req, res) => {
 
     console.log(err);
 
-    res.send('Erro no servidor');
+    res.send('Erro');
 
   }
 
 });
 
-
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log('Servidor rodando na porta', PORT);
+
+  console.log(
+    'Servidor rodando na porta',
+    PORT
+  );
+
 });
