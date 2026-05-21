@@ -1165,8 +1165,11 @@ app.get('/gerar', (req, res) => {
   </h2>
 
   <form
-    action="/generate-lote"
-    method="GET"
+    <form
+  action="/generate-lote"
+  method="GET"
+  target="_blank"
+>
   >
 
     <input
