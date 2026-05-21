@@ -1208,19 +1208,19 @@ app.get('/gerar', (req, res) => {
       </option>
 
       <option value="premio_1">
-        Voucher R$25
+        1,5MM
       </option>
 
       <option value="premio_2">
-        Voucher R$50
+        2,5MM
       </option>
 
       <option value="premio_3">
-        Voucher R$75
+        4,0MM
       </option>
 
       <option value="premio_4">
-        Voucher R$100
+        6,0MM
       </option>
 
     </select>
