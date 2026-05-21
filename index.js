@@ -10,6 +10,7 @@ const PDFDocument = require('pdfkit');
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /* =========================================
    GERADOR DE CÓDIGO ÚNICO
@@ -483,7 +484,7 @@ app.get('/scan/:code', async (req, res) => {
           padding:30px;
           width:90%;
           max-width:350px;
-          text-align:center;
+          text-align:center;	
         ">
 
           <h1>🎉</h1>
@@ -493,7 +494,68 @@ app.get('/scan/:code', async (req, res) => {
           <p>Você ganhou:</p>
 
           <h3>${qr.descricao_premio}</h3>
+<form method="POST" action="/gerar-voucher/${qr.code}">
 
+  <input
+    type="text"
+    name="nome"
+    placeholder="Nome Completo"
+    required
+    style="
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border-radius:10px;
+      border:1px solid #ccc;
+    "
+  >
+
+  <input
+    type="text"
+    name="cpf"
+    placeholder="CPF"
+    required
+    style="
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border-radius:10px;
+      border:1px solid #ccc;
+    "
+  >
+
+  <input
+    type="text"
+    name="loja"
+    placeholder="Loja onde comprou"
+    required
+    style="
+      width:100%;
+      padding:12px;
+      margin-top:10px;
+      border-radius:10px;
+      border:1px solid #ccc;
+    "
+  >
+
+  <button
+    type="submit"
+    style="
+      margin-top:15px;
+      padding:12px 20px;
+      background:#0d47a1;
+      color:white;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      width:100%;
+      font-size:16px;
+    "
+  >
+    GERAR VOUCHER
+  </button>
+
+</form>
         </div>
 
       </body>
@@ -559,6 +621,211 @@ app.get('/scan/:code', async (req, res) => {
 /* =========================================
    START
 ========================================= */
+app.post('/gerar-voucher/:code', async (req, res) => {
+
+  const { code } = req.params;
+
+  const {
+    nome,
+    cpf,
+    loja
+  } = req.body;
+
+  try {
+
+    const result = await db.query(
+      'SELECT * FROM qrcodes WHERE code = $1',
+      [code]
+    );
+
+    if (result.rows.length === 0) {
+
+      return res.send('Código inválido');
+
+    }
+
+    const qr = result.rows[0];
+
+    // impede gerar voucher duas vezes
+    if (qr.voucher) {
+
+      return res.send(`
+        <h1>
+          Voucher já gerado:
+          ${qr.voucher}
+        </h1>
+      `);
+
+    }
+
+    // gerar voucher
+    const voucher =
+      'VCHR-' +
+      Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+    await db.query(
+      `
+      UPDATE qrcodes
+      SET
+        nome = $1,
+        cpf = $2,
+        loja_compra = $3,
+        voucher = $4
+      WHERE code = $5
+      `,
+      [
+        nome,
+        cpf,
+        loja,
+        voucher,
+        code
+      ]
+    );
+
+    res.send(`
+      <html>
+
+      <body style="
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#f2f2f2;
+        font-family:Arial;
+      ">
+
+        <div style="
+          background:white;
+          padding:30px;
+          border-radius:20px;
+          text-align:center;
+          max-width:400px;
+          box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        ">
+
+          <h1>🎉 Voucher Gerado</h1>
+
+          <h2>${qr.descricao_premio}</h2>
+
+          <p>
+            Seu código de resgate:
+          </p>
+
+          <h1 style="
+            color:#0d47a1;
+          ">
+            ${voucher}
+          </h1>
+
+          <p>
+            Apresente este voucher junto
+            com documento oficial com CPF.
+          </p>
+
+        </div>
+
+      </body>
+
+      </html>
+    `);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.send('Erro no servidor');
+
+  }
+
+});
+
+app.get('/validar/:voucher', async (req, res) => {
+
+  const { voucher } = req.params;
+
+  try {
+
+    const result = await db.query(
+      `
+      SELECT *
+      FROM qrcodes
+      WHERE voucher = $1
+      `,
+      [voucher]
+    );
+
+    if (result.rows.length === 0) {
+
+      return res.send('Voucher inválido');
+
+    }
+
+    const qr = result.rows[0];
+
+    res.send(`
+      <html>
+
+      <body style="
+        font-family:Arial;
+        background:#f2f2f2;
+        padding:30px;
+      ">
+
+        <div style="
+          background:white;
+          max-width:500px;
+          margin:auto;
+          padding:30px;
+          border-radius:20px;
+        ">
+
+          <h1>VALIDAÇÃO</h1>
+
+          <p>
+            <b>Nome:</b>
+            ${qr.nome}
+          </p>
+
+          <p>
+            <b>CPF:</b>
+            ${qr.cpf}
+          </p>
+
+          <p>
+            <b>Prêmio:</b>
+            ${qr.descricao_premio}
+          </p>
+
+          <p>
+            <b>Status:</b>
+            ${
+              qr.resgatado
+                ? 'JÁ RESGATADO'
+                : 'DISPONÍVEL'
+            }
+          </p>
+
+        </div>
+
+      </body>
+
+      </html>
+    `);
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.send('Erro');
+
+  }
+
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
