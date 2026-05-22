@@ -454,14 +454,6 @@ app.get('/scan/:code', async (req, res) => {
 
     }
 
-    await db.query(
-      `
-      UPDATE qrcodes
-      SET usado = true
-      WHERE code = $1
-      `,
-      [code]
-    );
 
     // PREMIADO
     if (qr.tipo !== 'nao_premio') {
@@ -537,7 +529,19 @@ app.get('/scan/:code', async (req, res) => {
                 border:1px solid #ccc;
               "
             >
-
+<input
+  type="tel"
+  name="telefone"
+  placeholder="Telefone"
+  required
+  style="
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+  "
+>
             <input
               type="text"
               name="loja"
