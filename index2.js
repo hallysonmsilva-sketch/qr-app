@@ -439,25 +439,7 @@ app.get('/scan/:code', async (req, res) => {
     if (result.rows.length === 0) {
 
       return res.send(`
-        <html>
-        <body style="
-          margin:0;
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:#111;
-          color:white;
-          font-family:Arial;
-        ">
-          <div style="
-            text-align:center;
-          ">
-            <h1>❌</h1>
-            <h2>Código inválido</h2>
-          </div>
-        </body>
-        </html>
+        <h1>Código inválido</h1>
       `);
 
     }
@@ -467,398 +449,26 @@ app.get('/scan/:code', async (req, res) => {
     if (qr.usado) {
 
       return res.send(`
-        <html>
-        <body style="
-          margin:0;
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:#111;
-          color:white;
-          font-family:Arial;
-        ">
-          <div style="
-            text-align:center;
-          ">
-            <h1>⚠️</h1>
-            <h2>Código já utilizado</h2>
-          </div>
-        </body>
-        </html>
+        <h1>Código já utilizado</h1>
       `);
 
     }
 
-    // =====================================
-    // PREMIADO
-    // =====================================
 
+    // PREMIADO
     if (qr.tipo !== 'nao_premio') {
 
       return res.send(`
-
-<html>
-
-<head>
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<style>
-
-body{
-
-  margin:0;
-  min-height:100vh;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #0f2027,
-      #203a43,
-      #2c5364
-    );
-
-  font-family:Arial;
-}
-
-/* FUNDO */
-
-.bg{
-
-  position:absolute;
-
-  width:200%;
-  height:200%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.08) 1px,
-      transparent 1px
-    );
-
-  background-size:40px 40px;
-
-  animation:mover 25s linear infinite;
-}
-
-@keyframes mover{
-
-  from{
-    transform:translate(0,0);
-  }
-
-  to{
-    transform:translate(-200px,-200px);
-  }
-
-}
-
-/* CONFETES */
-
-.confete{
-
-  position:absolute;
-
-  width:10px;
-  height:10px;
-
-  top:-20px;
-
-  animation:cair linear infinite;
-}
-
-@keyframes cair{
-
-  to{
-    transform:
-      translateY(110vh)
-      rotate(720deg);
-  }
-
-}
-
-/* CARD */
-
-.card{
-
-  position:relative;
-  z-index:2;
-
-  width:90%;
-  max-width:400px;
-
-  background:rgba(255,255,255,0.12);
-
-  backdrop-filter:blur(18px);
-
-  border-radius:30px;
-
-  padding:35px;
-
-  text-align:center;
-
-  border:
-    1px solid rgba(255,255,255,0.2);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.4);
-
-  animation:aparecer .8s ease;
-}
-
-@keyframes aparecer{
-
-  from{
-    opacity:0;
-    transform:
-      translateY(40px)
-      scale(.9);
-  }
-
-  to{
-    opacity:1;
-    transform:
-      translateY(0)
-      scale(1);
-  }
-
-}
-
-/* TROFEU */
-
-.trofeu{
-
-  font-size:75px;
-
-  animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-
-  0%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.12);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
-}
-
-h1{
-
-  color:white;
-  margin-top:10px;
-  margin-bottom:5px;
-
-  font-size:34px;
-}
-
-.sub{
-
-  color:#dfefff;
-  font-size:16px;
-}
-
-/* PREMIO */
-
-.premio{
-
-  margin-top:25px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #00e5ff,
-      #00b0ff
-    );
-
-  padding:18px;
-
-  border-radius:18px;
-
-  color:white;
-
-  font-size:20px;
-  font-weight:bold;
-
-  box-shadow:
-    0 10px 30px rgba(0,176,255,.4);
-}
-
-/* INPUTS */
-
-.input{
-
-  width:100%;
-
-  padding:14px;
-
-  margin-top:14px;
-
-  border:none;
-
-  border-radius:14px;
-
-  font-size:16px;
-
-  outline:none;
-
-  background:rgba(255,255,255,0.92);
-
-  box-sizing:border-box;
-}
-
-/* BOTAO */
-
-.botao{
-
-  width:100%;
-
-  margin-top:20px;
-
-  background:white;
-
-  color:#1565c0;
-
-  padding:15px;
-
-  border:none;
-
-  border-radius:14px;
-
-  font-size:17px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.botao:hover{
-
-  transform:scale(1.03);
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="bg"></div>
-
-${Array.from({length:40}).map(() => `
-
-<div
-  class="confete"
-  style="
-    left:${Math.random()*100}%;
-    background:hsl(${Math.random()*360},100%,50%);
-    animation-duration:${3+Math.random()*4}s;
-    animation-delay:${Math.random()*3}s;
-  "
-></div>
-
-`).join('')}
-
-<div class="card">
-
-  <div class="trofeu">
-    🎉
-  </div>
-
-  <h1>
-    PARABÉNS!
-  </h1>
-
-  <div class="sub">
-    Você ganhou:
-  </div>
-
-  <div class="premio">
-    ${qr.descricao_premio}
-  </div>
-
-  <form
-    method="POST"
-    action="/gerar-voucher/${qr.code}"
-  >
-
-    <input
-      type="text"
-      name="nome"
-      placeholder="Nome Completo"
-      required
-      class="input"
-    >
-
-    <input
-      type="text"
-      name="cpf"
-      placeholder="CPF"
-      required
-      class="input"
-    >
-
-    <input
-      type="tel"
-      name="telefone"
-      placeholder="Telefone"
-      required
-      class="input"
-    >
-
-    <input
-      type="text"
-      name="loja"
-      placeholder="Loja onde comprou"
-      required
-      class="input"
-    >
-
-    <button
-      type="submit"
-      class="botao"
-    >
-      GERAR VOUCHER
-    </button>
-
-  </form>
-
-</div>
-
-</body>
-
-</html>
-
-      `);
-
-    }
-
-    // =====================================
-    // NÃO PREMIADO
-    // =====================================
-
-    return res.send(`
-
       <html>
+
+      <head>
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        >
+
+      </head>
 
       <body style="
         margin:0;
@@ -866,7 +476,7 @@ ${Array.from({length:40}).map(() => `
         display:flex;
         justify-content:center;
         align-items:center;
-        background:linear-gradient(135deg,#d50000,#ff1744);
+        background:linear-gradient(135deg,#00c6ff,#0072ff);
         font-family:Arial;
       ">
 
@@ -877,32 +487,153 @@ ${Array.from({length:40}).map(() => `
           width:90%;
           max-width:350px;
           text-align:center;
-          box-shadow:0 10px 30px rgba(0,0,0,0.2);
         ">
 
-          <h1>😢</h1>
+          <h1>🎉</h1>
 
-          <h2 style="color:#d50000;">
-            Não foi dessa vez
-          </h2>
+          <h2>Parabéns!</h2>
 
-          <p>
-            Continue participando!
-          </p>
+          <p>Você ganhou:</p>
+
+          <h3>${qr.descricao_premio}</h3>
+
+          <form
+            method="POST"
+            action="/gerar-voucher/${qr.code}"
+          >
+
+            <input
+              type="text"
+              name="nome"
+              placeholder="Nome Completo"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
+
+            <input
+              type="text"
+              name="cpf"
+              placeholder="CPF"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
+<input
+  type="tel"
+  name="telefone"
+  placeholder="Telefone"
+  required
+  style="
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+  "
+>
+            <input
+              type="text"
+              name="loja"
+              placeholder="Loja onde comprou"
+              required
+              style="
+                width:100%;
+                padding:12px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #ccc;
+              "
+            >
+
+            <button
+              type="submit"
+              style="
+                margin-top:15px;
+                padding:12px 20px;
+                background:#0d47a1;
+                color:white;
+                border:none;
+                border-radius:10px;
+                cursor:pointer;
+                width:100%;
+                font-size:16px;
+              "
+            >
+              GERAR VOUCHER
+            </button>
+
+          </form>
 
         </div>
 
       </body>
 
       </html>
+      `);
 
+    }
+
+    // NÃO PREMIADO
+    return res.send(`
+    <html>
+
+    <head>
+
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+      >
+
+    </head>
+
+    <body style="
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#d50000,#ff1744);
+      font-family:Arial;
+    ">
+
+      <div style="
+        background:white;
+        border-radius:20px;
+        padding:30px;
+        width:90%;
+        max-width:350px;
+        text-align:center;
+      ">
+
+        <h1>😢</h1>
+
+        <h2>Não foi dessa vez</h2>
+
+        <p>Continue participando!</p>
+
+      </div>
+
+    </body>
+
+    </html>
     `);
 
   } catch (err) {
 
     console.error(err);
 
-    res.send('Erro no servidor');
+    res.status(500).send('Erro no servidor');
 
   }
 
