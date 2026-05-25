@@ -305,7 +305,7 @@ app.get('/lote/:lote', async (req, res) => {
     html += `
       <div class="item">
 
-        <div class="qr-box">
+       <div class="qr-box">
 
   <div style="
     position:relative;
@@ -326,7 +326,7 @@ app.get('/lote/:lote', async (req, res) => {
     <!-- LOGO -->
 
     <img
-      src="/logo-qr	.png"
+      src="/logo-qr.png"
       style="
         position:absolute;
 
@@ -350,51 +350,6 @@ app.get('/lote/:lote', async (req, res) => {
   </div>
 
 </div>
-
-        <div class="texto">
-
-  <div style="
-    font-size:32px;
-    color:#0d6efd;
-    line-height:1;
-    margin-bottom:4px;
-  ">
-    ↓
-  </div>
-
-  <div style="
-    background:#0d6efd;
-
-    color:white;
-
-    padding:10px;
-
-    border-radius:12px;
-
-    font-size:15px;
-    font-weight:bold;
-
-    line-height:1.3;
-
-    border:3px solid #003c8f;
- <div class="texto" style="
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-
-  margin-top:10px;
-">
-
-<div class="texto" style="
-  position:relative;
-
-  width:100%;
-
-  margin-top:12px;
-
-  height:80px;
-">
 
 <div class="texto" style="
   position:relative;
@@ -435,15 +390,15 @@ app.get('/lote/:lote', async (req, res) => {
   <div style="
     position:absolute;
 
-    left:120px;
-    top:-5px;
+    right:0;
+    top:-10px;
 
     font-size:72px;
 
     color:black;
 
     transform:
-      rotate(-8deg);
+      rotate(-15deg);
 
     line-height:1;
   ">
@@ -451,6 +406,8 @@ app.get('/lote/:lote', async (req, res) => {
     ↷
 
   </div>
+
+</div>
 
 </div>
 `;
