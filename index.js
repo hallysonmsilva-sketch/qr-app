@@ -410,9 +410,9 @@ app.get('/lote/:lote', async (req, res) => {
     color:black;
 
     transform:
-       rotate(-55deg)
-       translateY(55px)
-       translateX(8px);
+       rotate(-70deg)
+       translateY(-75px)
+       translateX(55px);
 
     margin-top:-10px;
   ">
