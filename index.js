@@ -538,14 +538,20 @@ if (qr.tipo !== 'nao_premio') {
 
 body{
 
+body{
+
   margin:0;
+
   min-height:100vh;
 
   display:flex;
   justify-content:center;
-  align-items:center;
+  align-items:flex-start;
 
-  overflow:hidden;
+  padding:30px 0;
+
+  overflow-y:auto;
+  overflow-x:hidden;
 
   background:
     linear-gradient(
@@ -599,7 +605,7 @@ body{
 
   border-radius:35px;
 
-  padding:30px;
+  padding:24px;
 
   text-align:center;
 
@@ -637,7 +643,7 @@ body{
 
 .logo{
 
-  width:180px;
+  width:140px;
 
   margin-bottom:10px;
 }
@@ -675,7 +681,7 @@ h1{
 
   color:#0050d8;
 
-  font-size:52px;
+  font-size:4	2px;
 }
 
 .sub{
