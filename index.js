@@ -306,8 +306,50 @@ app.get('/lote/:lote', async (req, res) => {
       <div class="item">
 
         <div class="qr-box">
-          <img src="${qr}" />
-        </div>
+
+  <div style="
+    position:relative;
+    width:4.5cm;
+    height:4.5cm;
+  ">
+
+    <!-- QR -->
+
+    <img
+      src="${qr}"
+      style="
+        width:100%;
+        height:100%;
+      "
+    />
+
+    <!-- LOGO -->
+
+    <img
+      src="/logo-qr	.png"
+      style="
+        position:absolute;
+
+        top:50%;
+        left:50%;
+
+        transform:
+          translate(-50%, -50%);
+
+        width:1cm;
+        height:1cm;
+
+        background:white;
+
+        padding:4px;
+
+        border-radius:12px;
+      "
+    />
+
+  </div>
+
+</div>
 
         <div class="texto">
 
@@ -335,12 +377,49 @@ app.get('/lote/:lote', async (req, res) => {
     line-height:1.3;
 
     border:3px solid #003c8f;
+ <div class="texto" style="
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+
+  margin-top:10px;
+">
+
+  <!-- TEXO -->
+
+  <div style="
+    font-size:14px;
+    font-weight:bold;
+    line-height:1.4;
+    text-align:right;
+    color:black;
   ">
 
-    📲 APONTE A CÂMERA DO SEU CELULAR<br>
-    E GARANTA SEU PRÊMIO
+    Aponte a câmera<br>
+    do seu celular<br>
+    e garanta seu prêmio
 
   </div>
+
+  <!-- SETA -->
+
+  <div style="
+    font-size:60px;
+    line-height:1;
+    color:black;
+
+    transform:
+      rotate(-10deg);
+
+    margin-top:-10px;
+  ">
+
+    ↷
+
+  </div>
+
+</div>
 
 </div>
     `;
