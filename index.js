@@ -445,8 +445,7 @@ app.get('/lote/:lote', async (req, res) => {
 </div>
 
 </div>
-
-});
+';
 
 /* =========================================
    PDF DO LOTE
