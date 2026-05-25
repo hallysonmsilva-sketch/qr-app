@@ -376,7 +376,7 @@ app.get('/lote/:lote', async (req, res) => {
 
         color:black;
 
-        line-height:1.0;
+        line-height:0.5;
 
         text-align:center;
       ">
