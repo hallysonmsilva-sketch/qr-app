@@ -523,9 +523,9 @@ body{
   background:
     linear-gradient(
       135deg,
-      #0f2027,
-      #203a43,
-      #2c5364
+      #b8dcff,
+      #cfe8ff,
+      #dbeeff
     );
 
   font-family:Arial;
@@ -684,8 +684,8 @@ h1{
   background:
     linear-gradient(
       135deg,
-      #b8dcff,
-      #cfe8ff
+      #00e5ff,
+      #00b0ff
     );
 
   padding:18px;
