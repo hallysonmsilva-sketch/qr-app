@@ -360,7 +360,7 @@ app.get('/lote/:lote', async (req, res) => {
 
       margin-top:10px;
 
-      height:70px;
+      height:100px;
     ">
 
       <!-- TEXTO -->
@@ -376,13 +376,12 @@ app.get('/lote/:lote', async (req, res) => {
 
         color:black;
 
-        line-height:1.4;
+        line-height:1.0;
 
-        text-align:left;
+        text-align:center;
       ">
 
-        Aponte a câmera<br>
-        do seu celular<br>
+        Aponte a câmera do seu celular<br>
         e garanta seu prêmio
 
       </div>
