@@ -513,13 +513,13 @@ app.get('/scan/:code', async (req, res) => {
 
     }
 
-    // =====================================
-    // PREMIADO
-    // =====================================
+  // =====================================
+// PREMIADO
+// =====================================
 
-    if (qr.tipo !== 'nao_premio') {
+if (qr.tipo !== 'nao_premio') {
 
-      return res.send(`
+  return res.send(`
 
 <html>
 
@@ -531,6 +531,10 @@ app.get('/scan/:code', async (req, res) => {
 >
 
 <style>
+
+*{
+  box-sizing:border-box;
+}
 
 body{
 
@@ -546,44 +550,11 @@ body{
   background:
     linear-gradient(
       135deg,
-      #00e5ff,
-      #00b0ff
+      #00b0ff,
+      #0066ff
     );
 
-  font-family:Arial;
-}
-
-/* FUNDO */
-
-.bg{
-
-  position:absolute;
-
-  width:200%;
-  height:200%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.08) 1px,
-      transparent 1px
-    );
-
-  background-size:40px 40px;
-
-  animation:mover 25s linear infinite;
-}
-
-@keyframes mover{
-
-  from{
-    transform:translate(0,0);
-  }
-
-  to{
-    transform:translate(-200px,-200px);
-  }
-
+  font-family:Arial,sans-serif;
 }
 
 /* CONFETES */
@@ -597,15 +568,19 @@ body{
 
   top:-20px;
 
+  border-radius:2px;
+
   animation:cair linear infinite;
 }
 
 @keyframes cair{
 
   to{
+
     transform:
       translateY(110vh)
       rotate(720deg);
+
   }
 
 }
@@ -618,50 +593,60 @@ body{
   z-index:2;
 
   width:90%;
-  max-width:400px;
+  max-width:420px;
 
-  background:rgba(255,255,255,0.12);
+  background:white;
 
-  backdrop-filter:blur(18px);
+  border-radius:35px;
 
-  border-radius:30px;
-
-  padding:35px;
+  padding:30px;
 
   text-align:center;
 
-  border:
-    1px solid rgba(255,255,255,0.2);
-
   box-shadow:
-    0 20px 60px rgba(0,0,0,0.4);
+    0 15px 40px rgba(0,0,0,.25);
 
-  animation:aparecer .8s ease;
+  animation:entrada .7s ease;
 }
 
-@keyframes aparecer{
+@keyframes entrada{
 
   from{
+
     opacity:0;
+
     transform:
       translateY(40px)
-      scale(.9);
+      scale(.95);
+
   }
 
   to{
+
     opacity:1;
+
     transform:
       translateY(0)
       scale(1);
+
   }
 
 }
 
-/* TROFEU */
+/* LOGO */
 
-.trofeu{
+.logo{
 
-  font-size:75px;
+  width:180px;
+
+  margin-bottom:10px;
+}
+
+/* EMOJI */
+
+.emoji{
+
+  font-size:70px;
 
   animation:pulse 1.5s infinite;
 }
@@ -682,68 +667,120 @@ body{
 
 }
 
+/* TITULOS */
+
 h1{
 
-  color:white;
-  margin-top:10px;
-  margin-bottom:5px;
+  margin:10px 0 5px 0;
 
-  font-size:34px;
+  color:#0050d8;
+
+  font-size:52px;
 }
 
 .sub{
 
-  color:#dfefff;
-  font-size:16px;
+  color:#666;
+
+  font-size:18px;
+
+  margin-bottom:20px;
 }
 
 /* PREMIO */
 
 .premio{
 
-  margin-top:25px;
+  display:flex;
+  align-items:center;
+  gap:15px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #00e5ff,
-      #00b0ff
-    );
+  background:#f3f5f8;
 
   padding:18px;
 
   border-radius:18px;
 
+  margin-bottom:20px;
+
+  text-align:left;
+}
+
+.icone-premio{
+
+  min-width:60px;
+  height:60px;
+
+  border-radius:50%;
+
+  background:#0d6efd;
+
   color:white;
 
-  font-size:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-size:30px;
+}
+
+.texto-premio{
+
+  font-size:17px;
   font-weight:bold;
 
-  box-shadow:
-    0 10px 30px rgba(0,176,255,.4);
+  color:#111;
+
+  line-height:1.4;
 }
 
 /* INPUTS */
+
+.input-box{
+
+  position:relative;
+
+  margin-top:14px;
+}
 
 .input{
 
   width:100%;
 
-  padding:14px;
+  padding:16px 16px 16px 48px;
 
-  margin-top:14px;
+  border-radius:16px;
 
-  border:none;
+  border:2px solid #e2e2e2;
 
-  border-radius:14px;
+  background:#f7f7f7;
 
   font-size:16px;
 
   outline:none;
 
-  background:rgba(255,255,255,0.92);
+  transition:.2s;
+}
 
-  box-sizing:border-box;
+.input:focus{
+
+  border-color:#0d6efd;
+
+  background:white;
+}
+
+.icon{
+
+  position:absolute;
+
+  left:16px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  font-size:18px;
+
+  color:#666;
 }
 
 /* BOTAO */
@@ -752,30 +789,48 @@ h1{
 
   width:100%;
 
-  margin-top:20px;
+  margin-top:22px;
 
-  background:white;
-
-  color:#1565c0;
-
-  padding:15px;
+  padding:18px;
 
   border:none;
 
-  border-radius:14px;
+  border-radius:18px;
 
-  font-size:17px;
+  background:
+    linear-gradient(
+      135deg,
+      #0066ff,
+      #0047cc
+    );
 
+  color:white;
+
+  font-size:20px;
   font-weight:bold;
 
   cursor:pointer;
 
   transition:.2s;
+
+  box-shadow:
+    0 8px 20px rgba(0,102,255,.35);
 }
 
 .botao:hover{
 
-  transform:scale(1.03);
+  transform:scale(1.02);
+}
+
+/* RODAPE */
+
+.rodape{
+
+  margin-top:22px;
+
+  color:#555;
+
+  font-size:15px;
 }
 
 </style>
@@ -784,39 +839,43 @@ h1{
 
 <body>
 
-<div class="bg"></div>
+<!-- CONFETES -->
 
-${Array.from({length:40}).map(() => `
+${Array.from({length:50}).map(() => `
 
 <div
   class="confete"
   style="
     left:${Math.random()*100}%;
-    background:hsl(${Math.random()*360},100%,50%);
-    animation-duration:${3+Math.random()*4}s;
-    animation-delay:${Math.random()*3}s;
+
+    background:
+      hsl(${Math.random()*360},100%,50%);
+
+    animation-duration:
+      ${3+Math.random()*4}s;
+
+    animation-delay:
+      ${Math.random()*3}s;
   "
 ></div>
 
 `).join('')}
 
+<!-- CARD -->
+
 <div class="card">
 
-<img
-  src="/logo.png"
-  style="
-    width:120px;
-    display:block;
-    margin:0 auto 20px auto;
-  "
->
+  <img
+    src="/logo.png"
+    class="logo"
+  >
 
-<div class="trofeu">
-  🎉
-</div>
+  <div class="emoji">
+    🎉
+  </div>
 
   <h1>
-    PARABÉNS!
+    Parabéns!
   </h1>
 
   <div class="sub">
@@ -824,7 +883,15 @@ ${Array.from({length:40}).map(() => `
   </div>
 
   <div class="premio">
-    ${qr.descricao_premio}
+
+    <div class="icone-premio">
+      🎁
+    </div>
+
+    <div class="texto-premio">
+      ${qr.descricao_premio}
+    </div>
+
   </div>
 
   <form
@@ -832,37 +899,69 @@ ${Array.from({length:40}).map(() => `
     action="/gerar-voucher/${qr.code}"
   >
 
-    <input
-      type="text"
-      name="nome"
-      placeholder="Nome Completo"
-      required
-      class="input"
-    >
+    <div class="input-box">
 
-    <input
-      type="text"
-      name="cpf"
-      placeholder="CPF"
-      required
-      class="input"
-    >
+      <span class="icon">
+        👤
+      </span>
 
-    <input
-      type="tel"
-      name="telefone"
-      placeholder="Telefone"
-      required
-      class="input"
-    >
+      <input
+        type="text"
+        name="nome"
+        placeholder="Nome completo"
+        required
+        class="input"
+      >
 
-    <input
-      type="text"
-      name="loja"
-      placeholder="Loja onde comprou"
-      required
-      class="input"
-    >
+    </div>
+
+    <div class="input-box">
+
+      <span class="icon">
+        🪪
+      </span>
+
+      <input
+        type="text"
+        name="cpf"
+        placeholder="CPF"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <div class="input-box">
+
+      <span class="icon">
+        📞
+      </span>
+
+      <input
+        type="tel"
+        name="telefone"
+        placeholder="Telefone"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <div class="input-box">
+
+      <span class="icon">
+        🏪
+      </span>
+
+      <input
+        type="text"
+        name="loja"
+        placeholder="Loja onde comprou"
+        required
+        class="input"
+      >
+
+    </div>
 
     <button
       type="submit"
@@ -873,15 +972,19 @@ ${Array.from({length:40}).map(() => `
 
   </form>
 
+  <div class="rodape">
+    🔒 Seus dados estão seguros conosco.
+  </div>
+
 </div>
 
 </body>
 
 </html>
 
-      `);
+  `);
 
-    }
+}
 
     // =====================================
     // NÃO PREMIADO
