@@ -386,14 +386,32 @@ app.get('/lote/:lote', async (req, res) => {
   margin-top:10px;
 ">
 
+<div class="texto" style="
+  position:relative;
+
+  width:100%;
+
+  margin-top:12px;
+
+  height:80px;
+">
+
   <!-- TEXTO -->
 
   <div style="
+    position:absolute;
+
+    left:0;
+    top:18px;
+
     font-size:14px;
     font-weight:bold;
-    line-height:1.4;
-    text-align:right;
+
     color:black;
+
+    line-height:1.4;
+
+    text-align:left;
   ">
 
     Aponte a câmera<br>
@@ -405,16 +423,19 @@ app.get('/lote/:lote', async (req, res) => {
   <!-- SETA -->
 
   <div style="
-    font-size:60px;
-    line-height:1;
+    position:absolute;
+
+    left:120px;
+    top:-5px;
+
+    font-size:72px;
+
     color:black;
 
     transform:
-       rotate(-70deg)
-       translateY(-75px)
-       translateX(55px);
+      rotate(-8deg);
 
-    margin-top:-10px;
+    line-height:1;
   ">
 
     ↷
@@ -422,10 +443,6 @@ app.get('/lote/:lote', async (req, res) => {
   </div>
 
 </div>
-
-</div>
-    `;
-  }
 
   html += `
     </div>
