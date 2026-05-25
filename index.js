@@ -804,12 +804,11 @@ ${Array.from({length:40}).map(() => `
 <div class="card">
 
 <img
-  src="SUA_LOGO_AQUI"
+  src="/logo.png"
   style="
-    width:110px;
-    margin-bottom:15px;
-    filter:
-      drop-shadow(0 5px 15px rgba(0,0,0,.3));
+    width:120px;
+    display:block;
+    margin:0 auto 20px auto;
   "
 >
 
