@@ -538,20 +538,15 @@ if (qr.tipo !== 'nao_premio') {
 
 body{
 
-body{
-
   margin:0;
 
   min-height:100vh;
 
   display:flex;
   justify-content:center;
-  align-items:flex-start;
+  align-items:center;
 
-  padding:30px 0;
-
-  overflow-y:auto;
-  overflow-x:hidden;
+  overflow:hidden;
 
   background:
     linear-gradient(
@@ -561,6 +556,8 @@ body{
     );
 
   font-family:Arial,sans-serif;
+
+  position:relative;
 }
 
 /* CONFETES */
@@ -577,6 +574,8 @@ body{
   border-radius:2px;
 
   animation:cair linear infinite;
+
+  z-index:1;
 }
 
 @keyframes cair{
@@ -599,13 +598,13 @@ body{
   z-index:2;
 
   width:90%;
-  max-width:420px;
+  max-width:360px;
 
   background:white;
 
-  border-radius:35px;
+  border-radius:32px;
 
-  padding:24px;
+  padding:22px;
 
   text-align:center;
 
@@ -643,16 +642,16 @@ body{
 
 .logo{
 
-  width:140px;
+  width:130px;
 
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 /* EMOJI */
 
 .emoji{
 
-  font-size:70px;
+  font-size:52px;
 
   animation:pulse 1.5s infinite;
 }
@@ -677,20 +676,20 @@ body{
 
 h1{
 
-  margin:10px 0 5px 0;
+  margin:8px 0 5px 0;
 
   color:#0050d8;
 
-  font-size:4	2px;
+  font-size:38px;
 }
 
 .sub{
 
   color:#666;
 
-  font-size:18px;
+  font-size:16px;
 
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 /* PREMIO */
@@ -699,23 +698,23 @@ h1{
 
   display:flex;
   align-items:center;
-  gap:15px;
+  gap:12px;
 
   background:#f3f5f8;
 
-  padding:18px;
+  padding:16px;
 
   border-radius:18px;
 
-  margin-bottom:20px;
+  margin-bottom:18px;
 
   text-align:left;
 }
 
 .icone-premio{
 
-  min-width:60px;
-  height:60px;
+  min-width:52px;
+  height:52px;
 
   border-radius:50%;
 
@@ -727,12 +726,12 @@ h1{
   justify-content:center;
   align-items:center;
 
-  font-size:30px;
+  font-size:24px;
 }
 
 .texto-premio{
 
-  font-size:17px;
+  font-size:16px;
   font-weight:bold;
 
   color:#111;
@@ -746,22 +745,22 @@ h1{
 
   position:relative;
 
-  margin-top:14px;
+  margin-top:12px;
 }
 
 .input{
 
   width:100%;
 
-  padding:16px 16px 16px 48px;
+  padding:14px 14px 14px 44px;
 
-  border-radius:16px;
+  border-radius:15px;
 
   border:2px solid #e2e2e2;
 
-  background:#f7f7f7;
+  background:#f3f3f3;
 
-  font-size:16px;
+  font-size:15px;
 
   outline:none;
 
@@ -779,12 +778,12 @@ h1{
 
   position:absolute;
 
-  left:16px;
+  left:14px;
   top:50%;
 
   transform:translateY(-50%);
 
-  font-size:18px;
+  font-size:16px;
 
   color:#666;
 }
@@ -795,13 +794,13 @@ h1{
 
   width:100%;
 
-  margin-top:22px;
+  margin-top:18px;
 
-  padding:18px;
+  padding:15px;
 
   border:none;
 
-  border-radius:18px;
+  border-radius:16px;
 
   background:
     linear-gradient(
@@ -812,7 +811,7 @@ h1{
 
   color:white;
 
-  font-size:20px;
+  font-size:18px;
   font-weight:bold;
 
   cursor:pointer;
@@ -832,11 +831,11 @@ h1{
 
 .rodape{
 
-  margin-top:22px;
+  margin-top:18px;
 
   color:#555;
 
-  font-size:15px;
+  font-size:13px;
 }
 
 </style>
