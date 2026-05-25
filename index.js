@@ -444,14 +444,7 @@ app.get('/lote/:lote', async (req, res) => {
 
 </div>
 
-  html += `
-    </div>
-  </body>
-
-  </html>
-  `;
-
-  res.send(html);
+</div>
 
 });
 
