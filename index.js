@@ -684,8 +684,8 @@ h1{
   background:
     linear-gradient(
       135deg,
-      #00e5ff,
-      #00b0ff
+      #b8dcff,
+      #cfe8ff
     );
 
   padding:18px;
