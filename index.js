@@ -310,11 +310,39 @@ app.get('/lote/:lote', async (req, res) => {
         </div>
 
         <div class="texto">
-          Aponte a câmera do seu celular<br>
-          e garanta seu prêmio
-        </div>
 
-      </div>
+  <div style="
+    font-size:32px;
+    color:#0d6efd;
+    line-height:1;
+    margin-bottom:4px;
+  ">
+    ↓
+  </div>
+
+  <div style="
+    background:#0d6efd;
+
+    color:white;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    font-size:15px;
+    font-weight:bold;
+
+    line-height:1.3;
+
+    border:3px solid #003c8f;
+  ">
+
+    📲 APONTE A CÂMERA DO SEU CELULAR<br>
+    E GARANTA SEU PRÊMIO
+
+  </div>
+
+</div>
     `;
   }
 
