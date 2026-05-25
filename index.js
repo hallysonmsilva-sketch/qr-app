@@ -3,6 +3,7 @@ const SENHA_ADMIN = 'LOJA2026';
 
 const express = require('express');
 const app = express();
+app.use(express.static('public'));
 
 const cors = require('cors');
 const db = require('./db');
@@ -23,25 +24,47 @@ function gerarCodigo() {
 /* =========================================
    HOME
 ========================================= */
-app.get('/', async (req, res) => {
+app.get('/qr/:code', async (req, res) => {
 
   try {
 
-    const result = await db.query('SELECT NOW()');
+    const code = req.params.code;
 
-    res.json({
-      status: 'online',
-      banco: 'conectado',
-      horario: result.rows[0]
+    const qrCode = new QRCodeStyling({
+
+      width: 300,
+      height: 300,
+
+      data: `${BASE_URL}/scan/${code}`,
+
+      image: path.join(__dirname, 'public/logo.png'),
+
+      dotsOptions: {
+        color: '#000000',
+        type: 'rounded'
+      },
+
+      backgroundOptions: {
+        color: '#ffffff'
+      },
+
+      imageOptions: {
+        margin: 5
+      }
+
     });
+
+    const buffer = await qrCode.getRawData('png');
+
+    res.setHeader('Content-Type', 'image/png');
+
+    res.send(buffer);
 
   } catch (err) {
 
     console.error(err);
 
-    res.status(500).json({
-      erro: err.message
-    });
+    res.status(500).send('Erro ao gerar QR');
 
   }
 
@@ -780,9 +803,19 @@ ${Array.from({length:40}).map(() => `
 
 <div class="card">
 
-  <div class="trofeu">
-    🎉
-  </div>
+<img
+  src="SUA_LOGO_AQUI"
+  style="
+    width:110px;
+    margin-bottom:15px;
+    filter:
+      drop-shadow(0 5px 15px rgba(0,0,0,.3));
+  "
+>
+
+<div class="trofeu">
+  🎉
+</div>
 
   <h1>
     PARABÉNS!

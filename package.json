@@ -11,10 +11,12 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "canvas": "^3.2.3",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "pdfkit": "^0.18.0",
     "pg": "^8.20.0",
+    "qr-code-styling-node": "^1.5.0",
     "qrcode": "^1.5.4"
   }
 }
