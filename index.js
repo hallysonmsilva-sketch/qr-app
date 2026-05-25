@@ -303,113 +303,115 @@ app.get('/lote/:lote', async (req, res) => {
       await QRCode.toDataURL(url);
 
     html += `
-      <div class="item">
+  <div class="item">
 
-       <div class="qr-box">
+    <div class="qr-box">
 
-  <div style="
-    position:relative;
-    width:4.5cm;
-    height:4.5cm;
-  ">
+      <div style="
+        position:relative;
+        width:4.5cm;
+        height:4.5cm;
+      ">
 
-    <!-- QR -->
+        <!-- QR -->
 
-    <img
-      src="${qr}"
-      style="
-        width:100%;
-        height:100%;
-      "
-    />
+        <img
+          src="${qr}"
+          style="
+            width:100%;
+            height:100%;
+          "
+        />
 
-    <!-- LOGO -->
+        <!-- LOGO CENTRAL -->
 
-    <img
-      src="/logo-qr.png"
-      style="
+        <img
+          src="/logo-qr.png"
+          style="
+            position:absolute;
+
+            top:50%;
+            left:50%;
+
+            transform:
+              translate(-50%, -50%);
+
+            width:1cm;
+            height:1cm;
+
+            background:white;
+
+            padding:4px;
+
+            border-radius:12px;
+          "
+        />
+
+      </div>
+
+    </div>
+
+    <!-- TEXTO + SETA -->
+
+    <div style="
+      position:relative;
+
+      width:100%;
+
+      margin-top:10px;
+
+      height:70px;
+    ">
+
+      <!-- TEXTO -->
+
+      <div style="
         position:absolute;
 
-        top:50%;
-        left:50%;
+        left:0;
+        top:18px;
+
+        font-size:14px;
+        font-weight:bold;
+
+        color:black;
+
+        line-height:1.4;
+
+        text-align:left;
+      ">
+
+        Aponte a câmera<br>
+        do seu celular<br>
+        e garanta seu prêmio
+
+      </div>
+
+      <!-- SETA -->
+
+      <div style="
+        position:absolute;
+
+        right:0;
+        top:-5px;
+
+        font-size:72px;
+
+        color:black;
 
         transform:
-          translate(-50%, -50%);
+          rotate(-15deg);
 
-        width:1cm;
-        height:1cm;
+        line-height:1;
+      ">
 
-        background:white;
+        ↷
 
-        padding:4px;
+      </div>
 
-        border-radius:12px;
-      "
-    />
+    </div>
 
   </div>
-
-</div>
-
-<div class="texto" style="
-  position:relative;
-
-  width:100%;
-
-  margin-top:12px;
-
-  height:80px;
-">
-
-  <!-- TEXTO -->
-
-  <div style="
-    position:absolute;
-
-    left:0;
-    top:18px;
-
-    font-size:14px;
-    font-weight:bold;
-
-    color:black;
-
-    line-height:1.4;
-
-    text-align:left;
-  ">
-
-    Aponte a câmera<br>
-    do seu celular<br>
-    e garanta seu prêmio
-
-  </div>
-
-  <!-- SETA -->
-
-  <div style="
-    position:absolute;
-
-    right:0;
-    top:-10px;
-
-    font-size:72px;
-
-    color:black;
-
-    transform:
-      rotate(-15deg);
-
-    line-height:1;
-  ">
-
-    ↷
-
-  </div>
-
-</div>
-
-</div>
 `;
 
 /* =========================================
