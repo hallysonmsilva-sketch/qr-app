@@ -523,9 +523,9 @@ body{
   background:
     linear-gradient(
       135deg,
-      #81c9fa,
-      #81c9fa,
-      #81c9fa
+      #1465BB,
+      #1465BB,
+      #1465BB
     );
 
   font-family:Arial;
