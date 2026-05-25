@@ -386,7 +386,7 @@ app.get('/lote/:lote', async (req, res) => {
   margin-top:10px;
 ">
 
-  <!-- TEXO -->
+  <!-- TEXTO -->
 
   <div style="
     font-size:14px;
@@ -410,7 +410,9 @@ app.get('/lote/:lote', async (req, res) => {
     color:black;
 
     transform:
-      rotate(-10deg);
+       rotate(-15deg)
+       translateY(-15px)
+       translateX(8px);
 
     margin-top:-10px;
   ">
