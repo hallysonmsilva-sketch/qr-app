@@ -396,6 +396,16 @@ app.get('/lote/:lote', async (req, res) => {
   height:80px;
 ">
 
+<div class="texto" style="
+  position:relative;
+
+  width:100%;
+
+  margin-top:12px;
+
+  height:80px;
+">
+
   <!-- TEXTO -->
 
   <div style="
@@ -442,6 +452,7 @@ app.get('/lote/:lote', async (req, res) => {
 
   </div>
 
+</div>
 `;
 
 /* =========================================
