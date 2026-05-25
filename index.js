@@ -358,7 +358,7 @@ app.get('/lote/:lote', async (req, res) => {
 
       width:100%;
 
-      margin-top:5px;
+      margin-top:10px;
 
       height:100px;
     ">
@@ -369,7 +369,7 @@ app.get('/lote/:lote', async (req, res) => {
         position:absolute;
 
         left:0;
-        top:18px;
+        top:1px;
 
         font-size:14px;
         font-weight:bold;
@@ -1264,7 +1264,7 @@ app.post('/gerar-voucher/:code', async (req, res) => {
           >
 
           <p style="
-            margin-top:15px;
+            margin-top:15px ;
             font-size:14px;
             color:#666;
           ">
