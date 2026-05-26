@@ -380,7 +380,28 @@ app.get('/lote/:lote', async (req, res) => {
 
         text-align:center;
       ">
-		
+		<div style="
+  position:relative;
+
+  width:100%;
+
+  margin-top:10px;
+
+  height:120px;
+">
+
+  <!-- IMAGEM -->
+
+  <img
+    src="/premiada.png"
+    style="
+      width:80px;
+
+      display:block;
+
+      margin:0 auto 8px auto;
+    "
+  >
         Aponte a câmera do seu celular e<br>
         garanta seu prêmio
 
