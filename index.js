@@ -260,11 +260,11 @@ app.get('/lote/:lote', async (req, res) => {
   .item{
 
     width:6.3cm;
-    height:8.2cm;
+    min-height:8.2cm;
 
     padding:8px;
 
-    overflow:hidden;
+    overflow:visible;
 
     page-break-inside:avoid;
 
