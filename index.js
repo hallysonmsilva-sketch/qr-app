@@ -375,7 +375,7 @@ app.get('/lote/:lote', async (req, res) => {
       translateX(-50%)
       rotate(-90deg);
 
-    font-size:72px;
+    font-size:35px;
 
     color:black;
 
