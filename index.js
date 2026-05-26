@@ -404,7 +404,12 @@ app.get('/lote/:lote', async (req, res) => {
         line-height:1;
       ">
 
-        ↷
+       <img
+  src="/seta.png"
+  style="
+    width:95px;
+  "
+>
 
       </div>
 
