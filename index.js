@@ -383,7 +383,7 @@ app.get('/lote/:lote', async (req, res) => {
         <div style="
           font-size:15px;
 
-          line-height:1;
+          line-height:1.2;
 
           margin-top:-5px;
 
