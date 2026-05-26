@@ -380,7 +380,7 @@ app.get('/lote/:lote', async (req, res) => {
 
         text-align:center;
       ">
-		COMPRA PREMIADA<br>
+		
         Aponte a câmera do seu celular e<br>
         garanta seu prêmio
 
