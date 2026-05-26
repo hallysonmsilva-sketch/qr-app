@@ -363,29 +363,6 @@ app.get('/lote/:lote', async (req, res) => {
   height:85px;
 ">
 
-  <!-- SETA -->
-
-  <div style="
-    position:absolute;
-
-    top:-8px;
-    left:50%;
-
-    transform:
-      translateX(-50%)
-      rotate(-90deg);
-
-    font-size:15px;
-
-    color:black;
-
-    line-height:1;
-  ">
-
-    ➜
-
-  </div>
-
   <!-- TEXTO -->
 
   <div style="
