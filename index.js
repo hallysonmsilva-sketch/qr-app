@@ -400,6 +400,8 @@ app.get('/lote/:lote', async (req, res) => {
 
         transform:
           rotate(-15deg);
+	  translateY(50px)
+          translateX(50px);
 
         line-height:1;
       ">
