@@ -339,11 +339,11 @@ app.get('/lote/:lote', async (req, res) => {
             width:1cm;
             height:1cm;
 
-            background:transparent;
+            background:white;
 
-            padding:0px;
+            padding:1px;
 
-            border-radius:12px;
+            border-radius:6px;
           "
         />
 
@@ -397,23 +397,7 @@ app.get('/lote/:lote', async (req, res) => {
 
       <!-- SETA -->
 
-      <div style="
-        position:relative;
-
-        right:0;
-        top:-5px;
-
-        font-size:72px;
-
-        color:black;
-
-        transform:
-          rotate(-15deg);
-	  
-        line-height:1;
-      ">
-
-      <img
+     <img
   src="/seta.png"
   style="
     position:absolute;
