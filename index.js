@@ -339,9 +339,9 @@ app.get('/lote/:lote', async (req, res) => {
             width:1cm;
             height:1cm;
 
-            background:white;
+            background:transparent;
 
-            padding:4px;
+            padding:0px;
 
             border-radius:12px;
           "
