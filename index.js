@@ -1473,6 +1473,15 @@ app.post('/admin-validar/:voucher', async (req, res) => {
           border-radius:20px;
         ">
 
+	<img
+  		src="/logo.png"
+  		style="
+    		width:150px;
+    		display:block;
+    		margin:0 auto 20px auto;
+  "
+>
+
           <h1>VALIDAÇÃO</h1>
 
           <p>
