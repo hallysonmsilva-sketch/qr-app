@@ -228,64 +228,114 @@ app.get('/lote/:lote', async (req, res) => {
 
   <head>
 
-    <style>
+   <style>
 
-      body {
-        margin: 0;
-        padding: 20px;
-        font-family: Arial;
-      }
+  *{
+    box-sizing:border-box;
+  }
 
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 6cm);
-        gap: 0.8cm;
-        justify-content: center;
-      }
+  body{
+    margin:0;
+    padding:12px;
 
-      .item {
-        width: 6cm;
-        height: 7.5cm;
+    font-family:Arial;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-      }
+    background:white;
+  }
 
-      .qr-box {
-        width: 6cm;
-        height: 6cm;
+  .grid{
 
-        background: white;
+    display:grid;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    grid-template-columns:
+      repeat(3, 6.3cm);
 
-      img {
-        width: 4.5cm;
-        height: 4.5cm;
-      }
+    gap:0.4cm;
 
-      .texto {
-        margin-top: 5px;
+    justify-content:center;
 
-        font-size: 12px;
-        text-align: center;
-        font-weight: bold;
-      }
+    align-items:start;
+  }
 
-      @media print {
+  .item{
 
-        body {
-          margin: 0;
-        }
+    width:6.3cm;
+    height:8.2cm;
 
-      }
+    padding:8px;
 
-    </style>
+    overflow:hidden;
+
+    page-break-inside:avoid;
+
+    break-inside:avoid;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    border:1px solid transparent;
+  }
+
+  .qr-box{
+
+    width:5.2cm;
+    height:5.2cm;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+  }
+
+  .qr-box img{
+
+    max-width:100%;
+    max-height:100%;
+
+    object-fit:contain;
+  }
+
+  .texto{
+
+    width:100%;
+
+    text-align:center;
+
+    margin-top:4px;
+
+    flex-shrink:0;
+  }
+
+  @page{
+    size:A4 portrait;
+    margin:0.5cm;
+  }
+
+  @media print{
+
+    body{
+      padding:0;
+    }
+
+    .grid{
+      gap:0.3cm;
+    }
+
+    .item{
+      border:none;
+    }
+
+  }
+
+</style>
 
   </head>
 
