@@ -369,7 +369,7 @@ app.get('/lote/:lote', async (req, res) => {
         position:absolute;
 
         left:0;
-        top:-18px;
+        top:-40px;
 
         font-size:14px;
         font-weight:bold;
