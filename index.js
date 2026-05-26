@@ -381,7 +381,7 @@ app.get('/lote/:lote', async (req, res) => {
         <!-- SETA -->
 
         <div style="
-          font-size:55px;
+          font-size:15px;
 
           line-height:1;
 
