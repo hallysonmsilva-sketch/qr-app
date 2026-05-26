@@ -368,14 +368,14 @@ app.get('/lote/:lote', async (req, res) => {
   <div style="
     position:absolute;
 
-    top:-8px;
+    top:-30px;
     left:50%;
 
     transform:
       translateX(-50%)
       rotate(-90deg);
 
-    font-size:35px;
+    font-size:15px;
 
     color:black;
 
