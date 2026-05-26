@@ -1638,6 +1638,15 @@ app.post('/resgatar/:voucher', async (req, res) => {
           max-width:400px;
         ">
 
+	<img
+  		 src="/logo.png"
+  		 style="
+    		  width:130px;
+    		  display:block;
+    		 margin:0 auto 20px auto;
+  "
+>
+
           <h1>✅</h1>
 
           <h2>
