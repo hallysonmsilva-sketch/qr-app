@@ -228,105 +228,90 @@ app.get('/lote/:lote', async (req, res) => {
 
   <head>
 
-   <style>
+    <style>
 
-  *{
-    box-sizing:border-box;
-  }
+      *{
+        box-sizing:border-box;
+      }
 
-  body{
-    margin:0;
-    padding:12px;
+      body{
+        margin:0;
+        padding:10px;
 
-    font-family:Arial;
+        font-family:Arial;
 
-    background:white;
-  }
+        background:white;
+      }
 
-  .grid{
+      .grid{
 
-  width:100%;
+        display:grid;
 
-  display:grid;
+        grid-template-columns:
+          repeat(3, 6cm);
 
-  grid-template-columns:
-    repeat(3, 6cm);
+        gap:0.4cm;
 
-  justify-content:center;
+        justify-content:center;
+      }
 
-  gap:0.4cm;
-}
+      .item{
 
- .item{
+        width:6cm;
 
-  width:6cm;
+        min-height:7.8cm;
 
-  min-height:7.5cm;
+        display:flex;
 
-  display:flex;
+        flex-direction:column;
 
-  flex-direction:column;
+        align-items:center;
 
-  align-items:center;
+        justify-content:flex-start;
 
-  justify-content:flex-start;
-}
+        page-break-inside:avoid;
 
-  .qr-box{
+        break-inside:avoid;
+      }
 
-    width:5.2cm;
-    height:5.2cm;
+      .qr-box{
 
-    display:flex;
+        width:5cm;
+        height:5cm;
 
-    align-items:center;
+        display:flex;
 
-    justify-content:center;
+        align-items:center;
 
-    flex-shrink:0;
-  }
+        justify-content:center;
+      }
 
-  .qr-box img{
+      .qr-box img{
 
-    max-width:100%;
-    max-height:100%;
+        max-width:100%;
+        max-height:100%;
 
-    object-fit:contain;
-  }
+        object-fit:contain;
+      }
 
-  .texto{
+      @page{
+        size:A4 portrait;
+        margin:0.5cm;
+      }
 
-    width:100%;
+      @media print{
 
-    text-align:center;
+        body{
+          padding:0;
+        }
 
-    margin-top:4px;
+        .grid{
+          gap:0.3cm;
+        }
 
-    flex-shrink:0;
-  }
+      }
 
-  @page{
-    size:A4 portrait;
-    margin:0.5cm;
-  }
-
-  @media print{
-
-    body{
-      padding:0;
-    }
-
-    .grid{
-      gap:0.3cm;
-    }
-
-    .item{
-      border:none;
-    }
-
-  }
-
-</style>
+    </style>
 
   </head>
 
@@ -344,98 +329,98 @@ app.get('/lote/:lote', async (req, res) => {
       await QRCode.toDataURL(url);
 
     html += `
-  <div class="item">
+      <div class="item">
 
-    <div class="qr-box">
+        <div class="qr-box">
 
-      <div style="
-        position:relative;
-        width:4.5cm;
-        height:4.5cm;
-      ">
+          <div style="
+            position:relative;
 
-        <!-- QR -->
+            width:4.5cm;
+            height:4.5cm;
+          ">
 
-        <img
-          src="${qr}"
-          style="
-            width:100%;
-            height:100%;
-          "
-        />
+            <!-- QR -->
 
-        <!-- LOGO CENTRAL -->
+            <img
+              src="${qr}"
+              style="
+                width:100%;
+                height:100%;
+              "
+            />
 
-        <img
-          src="/logo-qr.png"
-          style="
-            position:absolute;
+            <!-- LOGO CENTRAL -->
 
-            top:50%;
-            left:50%;
+            <img
+              src="/logo-qr.png"
+              style="
+                position:absolute;
 
-            transform:
-              translate(-50%, -50%);
+                top:50%;
+                left:50%;
 
-            width:1cm;
-            height:1cm;
+                transform:
+                  translate(-50%, -50%);
 
-            background:white;
+                width:1cm;
+                height:1cm;
 
-            padding:0px;
+                background:white;
 
-            border-radius:6px;
-          "
-        />
+                padding:0;
+
+                border-radius:6px;
+              "
+            />
+
+          </div>
+
+        </div>
+
+        <!-- SETA -->
+
+        <div style="
+          font-size:55px;
+
+          line-height:1;
+
+          margin-top:-5px;
+
+          color:black;
+
+          transform:
+            rotate(-90deg);
+        ">
+
+          ➜
+
+        </div>
+
+        <!-- TEXTO -->
+
+        <div style="
+          text-align:center;
+
+          font-size:13px;
+
+          font-weight:bold;
+
+          line-height:1.2;
+
+          margin-top:-5px;
+
+          color:black;
+        ">
+
+          Aponte a câmera do seu celular e<br>
+          garanta seu prêmio
+
+        </div>
 
       </div>
-
-    </div>
-
-    <!-- TEXTO + SETA -->
-
-<div style="
-  position:relative;
-
-  width:100%;
-
-  margin-top:4px;
-
-  height:85px;
-">
-
-  <!-- TEXTO -->
-
-  <div style="
-    position:absolute;
-
-    top:-32px;
-    left:50%;
-
-    transform:
-      translateX(-50%);
-
-    font-size:14px;
-    font-weight:bold;
-
-    color:black;
-
-    line-height:1.2;
-
-    text-align:center;
-
-    width:100%;
-  ">
-
-    Aponte a câmera do seu celular e<br>
-    garanta seu prêmio
-
-  </div>
-
-</div>
-`;
-  
-}
+    `;
+  }
 
   html += `
     </div>
