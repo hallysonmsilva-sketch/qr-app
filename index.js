@@ -245,29 +245,23 @@ app.get('/lote/:lote', async (req, res) => {
 
   .grid{
 
+  width:100%;
+
   display:grid;
 
   grid-template-columns:
-    repeat(3, 1fr);
+    repeat(3, 6cm);
 
-  gap:0.3cm;
+  justify-content:center;
 
-  justify-items:center;
-
-  align-items:start;
+  gap:0.4cm;
 }
 
  .item{
 
   width:6cm;
 
-  min-height:7.8cm;
-
-  padding:5px;
-
-  page-break-inside:avoid;
-
-  break-inside:avoid;
+  min-height:7.5cm;
 
   display:flex;
 
