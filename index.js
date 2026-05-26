@@ -968,9 +968,13 @@ ${Array.from({length:50}).map(() => `
 <div class="card">
 
   <img
-    src="/logo.png"
-    class="logo"
-  >
+  src="/logo.png"
+  style="
+    width:140px;
+    display:block;
+    margin:0 auto 20px auto;
+  "
+>
 
   <div class="emoji">
     🎉
@@ -1236,6 +1240,14 @@ app.post('/gerar-voucher/:code', async (req, res) => {
           box-shadow:0 10px 30px rgba(0,0,0,0.2);
         ">
 
+	<img
+  			src="/logo.png"
+  			style="
+    			width:140px;
+    			display:block;
+    			margin:0 auto 20px auto;
+  "
+>
           <h1>🎉 Voucher Gerado</h1>
 
           <h2>${qr.descricao_premio}</h2>
@@ -1335,6 +1347,15 @@ app.get('/admin-validar/:voucher', async (req, res) => {
           max-width:400px;
           text-align:center;
         ">
+
+	<img
+  			src="/logo.png"
+  			style="
+  		  	width:140px;
+    			display:block;
+    			margin:0 auto 20px auto;
+  "
+>
 
           <h2>Área do Parceiro</h2>
 
