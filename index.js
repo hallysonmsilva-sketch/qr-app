@@ -366,10 +366,10 @@ app.get('/lote/:lote', async (req, res) => {
       <!-- TEXTO -->
 
       <div style="
-        position:relative;
+        position:absolute;
 
         left:0;
-        top:1px;
+        top:5px;
 
         font-size:14px;
         font-weight:bold;
