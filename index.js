@@ -353,55 +353,68 @@ app.get('/lote/:lote', async (req, res) => {
 
     <!-- TEXTO + SETA -->
 
-    <div style="
-      position:relative;
-
-      width:100%;
-
-      margin-top:10px;
-
-      height:70px;
-    ">
-
-      <!-- TEXTO -->
-
-      <div style="
-        position:absolute;
-
-        left:0;
-        top:-40px;
-
-        font-size:14px;
-        font-weight:bold;
-
-        color:black;
-
-        line-height:1.4;
-
-        text-align:center;
-      ">
-	<div style="
+<div style="
   position:relative;
 
   width:100%;
 
-  margin-top:10px;
+  margin-top:4px;
 
-  height:120px;
+  height:85px;
 ">
-			➜
-        Aponte a câmera do seu celular e<br>
-        garanta seu prêmio
 
-      </div>
+  <!-- SETA -->
 
-      <!-- SETA -->
+  <div style="
+    position:absolute;
 
-        </div>
+    top:-8px;
+    left:50%;
 
-    </div>
+    transform:
+      translateX(-50%)
+      rotate(-90deg);
+
+    font-size:72px;
+
+    color:black;
+
+    line-height:1;
+  ">
+
+    ➜
 
   </div>
+
+  <!-- TEXTO -->
+
+  <div style="
+    position:absolute;
+
+    top:42px;
+    left:50%;
+
+    transform:
+      translateX(-50%);
+
+    font-size:14px;
+    font-weight:bold;
+
+    color:black;
+
+    line-height:1.2;
+
+    text-align:center;
+
+    width:100%;
+  ">
+
+    Aponte a câmera do seu celular e<br>
+    garanta seu prêmio
+
+  </div>
+
+</div>
 `;
   
 }
