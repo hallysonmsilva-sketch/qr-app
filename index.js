@@ -245,41 +245,38 @@ app.get('/lote/:lote', async (req, res) => {
 
   .grid{
 
-    display:grid;
+  display:grid;
 
-    grid-template-columns:
-      repeat(3, 6.3cm);
+  grid-template-columns:
+    repeat(3, 1fr);
 
-    gap:0.4cm;
+  gap:0.3cm;
 
-    justify-content:center;
+  justify-items:center;
 
-    align-items:start;
-  }
+  align-items:start;
+}
 
-  .item{
+ .item{
 
-    width:6.3cm;
-    min-height:8.2cm;
+  width:6cm;
 
-    padding:8px;
+  min-height:7.8cm;
 
-    overflow:visible;
+  padding:5px;
 
-    page-break-inside:avoid;
+  page-break-inside:avoid;
 
-    break-inside:avoid;
+  break-inside:avoid;
 
-    display:flex;
+  display:flex;
 
-    flex-direction:column;
+  flex-direction:column;
 
-    align-items:center;
+  align-items:center;
 
-    justify-content:flex-start;
-
-    border:1px solid transparent;
-  }
+  justify-content:flex-start;
+}
 
   .qr-box{
 
