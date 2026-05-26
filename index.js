@@ -368,7 +368,7 @@ app.get('/lote/:lote', async (req, res) => {
   <div style="
     position:absolute;
 
-    top:-30px;
+    top:-8px;
     left:50%;
 
     transform:
@@ -391,7 +391,7 @@ app.get('/lote/:lote', async (req, res) => {
   <div style="
     position:absolute;
 
-    top:-42px;
+    top:-32px;
     left:50%;
 
     transform:
