@@ -389,7 +389,7 @@ app.get('/lote/:lote', async (req, res) => {
 
   height:120px;
 ">
-
+			➜
         Aponte a câmera do seu celular e<br>
         garanta seu prêmio
 
