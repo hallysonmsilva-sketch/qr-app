@@ -410,7 +410,7 @@ app.get('/lote/:lote', async (req, res) => {
     position:absolute;
 
     right:165px;
-    top:-145px;
+    top:-155px;
 
     width:95px;
 
