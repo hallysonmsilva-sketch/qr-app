@@ -381,11 +381,11 @@ app.get('/lote/:lote', async (req, res) => {
         <!-- SETA -->
 
         <div style="
-          font-size:15px;
+          font-size:10px;
 
           line-height:1.2;
 
-          margin-top:-18px;
+          margin-top:-25px;
 
           color:black;
 
@@ -408,13 +408,14 @@ app.get('/lote/:lote', async (req, res) => {
 
           line-height:1.2;
 
-          margin-top:-18px;
+          margin-top:-12px;
 
           color:black;
         ">
 
           Aponte a câmera do seu<br> 
-          celular e garanta seu prêmio
+          celular e garanta seu<br>
+		prêmio
 
         </div>
 
