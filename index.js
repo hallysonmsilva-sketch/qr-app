@@ -385,7 +385,7 @@ app.get('/lote/:lote', async (req, res) => {
 
           line-height:1.2;
 
-          margin-top:-25px;
+          margin-top:-20px;
 
           color:black;
 
