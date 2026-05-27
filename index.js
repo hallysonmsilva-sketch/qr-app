@@ -413,9 +413,8 @@ app.get('/lote/:lote', async (req, res) => {
           color:black;
         ">
 
-          Aponte a câmera do seu<br> 
-          celular e garanta seu<br>
-		prêmio
+          Aponte a câmera do seu celular<br>
+          e garanta seu prêmio
 
         </div>
 
