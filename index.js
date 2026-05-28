@@ -949,7 +949,7 @@ app.post('/verificar-premio/:code', async (req, res) => {
         height:100vh;
         display:flex;
         justify-content:center;
-        align-items:flex-start;
+        align-items:center;
 	padding:20px 0;
         background:linear-gradient(135deg,#d50000,#ff1744);
         font-family:Arial;
