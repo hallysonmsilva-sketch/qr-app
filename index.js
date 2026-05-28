@@ -678,7 +678,7 @@ body{
 
 .input-box{
 
-  margin-top:14px;
+  margin-top:8px;
 }
 
 .input{
@@ -756,14 +756,21 @@ body{
 
     display:block;
 
-    margin:0 auto 10px auto;
+    margin:0 auto 4px auto;
   "
 >
 
-  <p>
-    Preencha seus dados para
-    verificar seu prêmio
-  </p>
+  <p style="
+  margin-top:4px;
+  margin-bottom:10px;
+
+  color:#555;
+
+  font-size:15px;
+">
+  Preencha seus dados para
+  verificar seu prêmio
+</p>
 
   <form
     method="POST"
@@ -929,7 +936,7 @@ app.post('/verificar-premio/:code', async (req, res) => {
             style="
               width:140px;
               display:block;
-              margin:0 auto 20px auto;
+              margin:0 auto 8px auto;
             "
           >
 
@@ -1621,7 +1628,7 @@ app.get('/gerar', (req, res) => {
 
 <div style="
   background:white;
-  padding:25px;
+  padding:18px 25px;;
   border-radius:20px;
   margin-bottom:25px;
 ">
