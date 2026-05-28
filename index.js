@@ -568,14 +568,7 @@ app.get('/scan/:code', async (req, res) => {
       return res.send(`
         <html>
         <body style="
-          margin:0;
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:#111;
-          color:white;
-          font-family:Arial;
+          	;
         ">
           <div style="text-align:center;">
             <h1>❌</h1>
@@ -593,15 +586,31 @@ app.get('/scan/:code', async (req, res) => {
 
       return res.send(`
         <html>
-        <body style="
-          margin:0;
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:#111;
-          color:white;
-          font-family:Arial;
+       body{
+
+  margin:0;
+
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+
+  overflow-y:auto;
+
+  padding:30px 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00b0ff,
+      #0066ff
+    );
+
+  font-family:Arial,sans-serif;
+
+  position:relative;
+}
         ">
           <div style="text-align:center;">
             <h1>⚠️</h1>
@@ -740,11 +749,16 @@ body{
     "
   >
 
-  <h1 style="
-    color:#0050d8;
-  ">
-    Compra Premiada
-  </h1>
+ <img
+  src="/titulo.png"
+  style="
+    width:180px;
+
+    display:block;
+
+    margin:0 auto 10px auto;
+  "
+>
 
   <p>
     Preencha seus dados para
@@ -760,6 +774,18 @@ body{
 
       <input
         type="text"
+        name="cpf"
+        placeholder="CPF"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <div class="input-box">
+
+     <input
+        type="text"
         name="nome"
         placeholder="Nome completo"
         required
@@ -771,21 +797,9 @@ body{
     <div class="input-box">
 
       <input
-        type="text"
-        name="cpf"
-        placeholder="CPF"
-        required
-        class="input"
-      >
-
-    </div>
-
-    <div class="input-box">
-
-      <input
         type="tel"
-        name="telefone"
-        placeholder="Telefone"
+        name="whatsapp"
+        placeholder="Whatsapp"
         required
         class="input"
       >
@@ -796,8 +810,8 @@ body{
 
       <input
         type="text"
-        name="loja"
-        placeholder="Loja onde comprou"
+        name="e-mail"
+        placeholder="E-mail"
         required
         class="input"
       >
@@ -1051,13 +1065,13 @@ body{
   z-index:2;
 
   width:90%;
-  max-width:360px;
+  max-width:340px;
 
   background:white;
 
   border-radius:32px;
 
-  padding:22px;
+  padding:18px;
 
   text-align:center;
 
@@ -1173,7 +1187,7 @@ ${Array.from({length:50}).map(() => `
   <img
     src="${qrValidacao}"
     style="
-      width:220px;
+      width:180px;
       margin-top:20px;
     "
   >
