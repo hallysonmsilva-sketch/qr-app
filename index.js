@@ -749,15 +749,16 @@ body{
     "
   >
 
- <img
+<img
   src="/titulo.png"
   style="
     width:280px;
 
     display:block;
 
+    margin:0 auto 4px auto;
+  "
 >
-
   <p style="
   margin-top:4px;
   margin-bottom:10px;
@@ -777,6 +778,10 @@ body{
 
     <div class="input-box">
 
+ <span class="icon">
+        🪪
+      </span>
+
       <input
         type="text"
         name="cpf"
@@ -788,6 +793,10 @@ body{
     </div>
 
     <div class="input-box">
+
+	<span class="icon">
+        👤
+      </span>
 
      <input
         type="text"
@@ -801,6 +810,10 @@ body{
 
     <div class="input-box">
 
+     <span class="icon">
+        📞
+      </span>
+
       <input
         type="tel"
         name="whatsapp"
@@ -812,6 +825,10 @@ body{
     </div>
 
     <div class="input-box">
+
+	<span class="icon">
+        📧
+      </span>
 
       <input
         type="text"
