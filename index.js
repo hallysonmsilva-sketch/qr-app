@@ -88,22 +88,22 @@ app.get('/generate-lote', async (req, res) => {
 
 if (tipo === 'premio_1') {
   descricao =
-    'Voucher no valor de R$ 25,00 em nossos parceiros';
+    'Kit de Ferramentas Eletricista';
 }
 
 else if (tipo === 'premio_2') {
   descricao =
-    'Voucher no valor de R$ 50,00 em nossos parceiros';
+    'TV 32 polegadas';
 }
 
 else if (tipo === 'premio_3') {
   descricao =
-    'Voucher no valor de R$ 75,00 em nossos parceiros';
+    'Forno Microondas 300L';
 }
 
 else if (tipo === 'premio_4') {
   descricao =
-    'Voucher no valor de R$ 100,00 em nossos parceiros';
+    'Geladeira Fost free 450L';
 }
 
   const lote = 'LOTE-' + Date.now();
@@ -577,9 +577,7 @@ app.get('/scan/:code', async (req, res) => {
           color:white;
           font-family:Arial;
         ">
-          <div style="
-            text-align:center;
-          ">
+          <div style="text-align:center;">
             <h1>❌</h1>
             <h2>Código inválido</h2>
           </div>
@@ -605,9 +603,7 @@ app.get('/scan/:code', async (req, res) => {
           color:white;
           font-family:Arial;
         ">
-          <div style="
-            text-align:center;
-          ">
+          <div style="text-align:center;">
             <h1>⚠️</h1>
             <h2>Código já utilizado</h2>
           </div>
@@ -617,13 +613,370 @@ app.get('/scan/:code', async (req, res) => {
 
     }
 
-  // =====================================
-// PREMIADO
-// =====================================
+    return res.send(`
 
-if (qr.tipo !== 'nao_premio') {
+<html>
 
-  return res.send(`
+<head>
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+
+  margin:0;
+
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00b0ff,
+      #0066ff
+    );
+
+  font-family:Arial,sans-serif;
+}
+
+.card{
+
+  width:90%;
+  max-width:360px;
+
+  background:white;
+
+  border-radius:30px;
+
+  padding:25px;
+
+  text-align:center;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.25);
+}
+
+.input-box{
+
+  margin-top:14px;
+}
+
+.input{
+
+  width:100%;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  border:2px solid #ddd;
+
+  background:#f5f5f5;
+
+  font-size:15px;
+
+  outline:none;
+}
+
+.input:focus{
+
+  border-color:#0d6efd;
+
+  background:white;
+}
+
+.botao{
+
+  width:100%;
+
+  margin-top:20px;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0066ff,
+      #0047cc
+    );
+
+  color:white;
+
+  font-size:18px;
+  font-weight:bold;
+
+  cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+  <img
+    src="/logo.png"
+    style="
+      width:140px;
+      display:block;
+      margin:0 auto 20px auto;
+    "
+  >
+
+  <h1 style="
+    color:#0050d8;
+  ">
+    Compra Premiada
+  </h1>
+
+  <p>
+    Preencha seus dados para
+    verificar seu prêmio
+  </p>
+
+  <form
+    method="POST"
+    action="/verificar-premio/${qr.code}"
+  >
+
+    <div class="input-box">
+
+      <input
+        type="text"
+        name="nome"
+        placeholder="Nome completo"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <div class="input-box">
+
+      <input
+        type="text"
+        name="cpf"
+        placeholder="CPF"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <div class="input-box">
+
+      <input
+        type="tel"
+        name="telefone"
+        placeholder="Telefone"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <div class="input-box">
+
+      <input
+        type="text"
+        name="loja"
+        placeholder="Loja onde comprou"
+        required
+        class="input"
+      >
+
+    </div>
+
+    <button
+      type="submit"
+      class="botao"
+    >
+      VERIFICAR PRÊMIO
+    </button>
+
+  </form>
+
+</div>
+
+</body>
+
+</html>
+
+    `);
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.send('Erro no servidor');
+
+  }
+
+});
+
+
+/* =========================================
+   VERIFICAR PREMIO
+========================================= */
+app.post('/verificar-premio/:code', async (req, res) => {
+
+  const { code } = req.params;
+
+  const {
+    nome,
+    cpf,
+    telefone,
+    loja
+  } = req.body;
+
+  try {
+
+    const result = await db.query(
+      'SELECT * FROM qrcodes WHERE code = $1',
+      [code]
+    );
+
+    if (result.rows.length === 0) {
+
+      return res.send('Código inválido');
+
+    }
+
+    const qr = result.rows[0];
+
+    /* =====================================
+       NÃO PREMIADO
+    ===================================== */
+
+    if (qr.tipo === 'nao_premio') {
+
+      await db.query(
+        `
+        UPDATE qrcodes
+        SET
+          nome = $1,
+          cpf = $2,
+          telefone = $3,
+          loja_compra = $4
+        WHERE code = $5
+        `,
+        [
+          nome,
+          cpf,
+          telefone,
+          loja,
+          code
+        ]
+      );
+
+      return res.send(`
+
+      <html>
+
+      <body style="
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#d50000,#ff1744);
+        font-family:Arial;
+      ">
+
+        <div style="
+          background:white;
+          border-radius:20px;
+          padding:30px;
+          width:90%;
+          max-width:350px;
+          text-align:center;
+          box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        ">
+
+          <img
+            src="/logo.png"
+            style="
+              width:140px;
+              display:block;
+              margin:0 auto 20px auto;
+            "
+          >
+
+          <h1>😢</h1>
+
+          <h2 style="color:#d50000;">
+            Não foi dessa vez
+          </h2>
+
+          <p>
+            Continue participando!
+          </p>
+
+        </div>
+
+      </body>
+
+      </html>
+
+      `);
+
+    }
+
+    /* =====================================
+       PREMIADO
+    ===================================== */
+
+    const voucher =
+      'VCHR-' +
+      Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+    await db.query(
+      `
+      UPDATE qrcodes
+      SET
+        nome = $1,
+        cpf = $2,
+        telefone = $3,
+        loja_compra = $4,
+        voucher = $5
+      WHERE code = $6
+      `,
+      [
+        nome,
+        cpf,
+        telefone,
+        loja,
+        voucher,
+        code
+      ]
+    );
+
+    const qrValidacao =
+      await QRCode.toDataURL(
+        `${BASE_URL}/admin-validar/${voucher}`
+      );
+
+    return res.send(`
 
 <html>
 
@@ -664,8 +1017,6 @@ body{
   position:relative;
 }
 
-/* CONFETES */
-
 .confete{
 
   position:absolute;
@@ -694,8 +1045,6 @@ body{
 
 }
 
-/* CARD */
-
 .card{
 
   position:relative;
@@ -714,44 +1063,7 @@ body{
 
   box-shadow:
     0 15px 40px rgba(0,0,0,.25);
-
-  animation:entrada .7s ease;
 }
-
-@keyframes entrada{
-
-  from{
-
-    opacity:0;
-
-    transform:
-      translateY(40px)
-      scale(.95);
-
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-      translateY(0)
-      scale(1);
-
-  }
-
-}
-
-/* LOGO */
-
-.logo{
-
-  width:130px;
-
-  margin-bottom:8px;
-}
-
-/* EMOJI */
 
 .emoji{
 
@@ -776,179 +1088,11 @@ body{
 
 }
 
-/* TITULOS */
-
-h1{
-
-  margin:8px 0 5px 0;
-
-  color:#0050d8;
-
-  font-size:38px;
-}
-
-.sub{
-
-  color:#666;
-
-  font-size:16px;
-
-  margin-bottom:18px;
-}
-
-/* PREMIO */
-
-.premio{
-
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  background:#f3f5f8;
-
-  padding:16px;
-
-  border-radius:18px;
-
-  margin-bottom:18px;
-
-  text-align:left;
-}
-
-.icone-premio{
-
-  min-width:52px;
-  height:52px;
-
-  border-radius:50%;
-
-  background:#0d6efd;
-
-  color:white;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  font-size:24px;
-}
-
-.texto-premio{
-
-  font-size:16px;
-  font-weight:bold;
-
-  color:#111;
-
-  line-height:1.4;
-}
-
-/* INPUTS */
-
-.input-box{
-
-  position:relative;
-
-  margin-top:12px;
-}
-
-.input{
-
-  width:100%;
-
-  padding:14px 14px 14px 44px;
-
-  border-radius:15px;
-
-  border:2px solid #e2e2e2;
-
-  background:#f3f3f3;
-
-  font-size:15px;
-
-  outline:none;
-
-  transition:.2s;
-}
-
-.input:focus{
-
-  border-color:#0d6efd;
-
-  background:white;
-}
-
-.icon{
-
-  position:absolute;
-
-  left:14px;
-  top:50%;
-
-  transform:translateY(-50%);
-
-  font-size:16px;
-
-  color:#666;
-}
-
-/* BOTAO */
-
-.botao{
-
-  width:100%;
-
-  margin-top:18px;
-
-  padding:15px;
-
-  border:none;
-
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #0066ff,
-      #0047cc
-    );
-
-  color:white;
-
-  font-size:18px;
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:.2s;
-
-  box-shadow:
-    0 8px 20px rgba(0,102,255,.35);
-}
-
-.botao:hover{
-
-  transform:scale(1.02);
-}
-
-/* RODAPE */
-
-.rodape{
-
-  margin-top:18px;
-
-  color:#555;
-
-  font-size:13px;
-}
-
 </style>
 
 </head>
 
 <body>
-
-<!-- CONFETES -->
 
 ${Array.from({length:50}).map(() => `
 
@@ -970,124 +1114,77 @@ ${Array.from({length:50}).map(() => `
 
 `).join('')}
 
-<!-- CARD -->
-
 <div class="card">
 
   <img
-  src="/logo.png"
-  style="
-    width:140px;
-    display:block;
-    margin:0 auto 20px auto;
-  "
->
+    src="/logo.png"
+    style="
+      width:140px;
+      display:block;
+      margin:0 auto 20px auto;
+    "
+  >
 
   <div class="emoji">
     🎉
   </div>
 
-  <h1>
+  <h1 style="
+    color:#0050d8;
+  ">
     Parabéns!
   </h1>
 
-  <div class="sub">
+  <p>
     Você ganhou:
+  </p>
+
+  <div style="
+    background:#f3f5f8;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    margin-bottom:18px;
+
+    font-weight:bold;
+  ">
+
+    ${qr.descricao_premio}
+
   </div>
 
-  <div class="premio">
+  <p>
+    Seu código de resgate:
+  </p>
 
-    <div class="icone-premio">
-      🎁
-    </div>
+  <h1 style="
+    color:#0d47a1;
+  ">
+    ${voucher}
+  </h1>
 
-    <div class="texto-premio">
-      ${qr.descricao_premio}
-    </div>
+  <p>
+    Apresente este voucher
+    no ponto de troca.
+  </p>
 
-  </div>
-
-  <form
-    method="POST"
-    action="/gerar-voucher/${qr.code}"
+  <img
+    src="${qrValidacao}"
+    style="
+      width:220px;
+      margin-top:20px;
+    "
   >
 
-    <div class="input-box">
-
-      <span class="icon">
-        👤
-      </span>
-
-      <input
-        type="text"
-        name="nome"
-        placeholder="Nome completo"
-        required
-        class="input"
-      >
-
-    </div>
-
-    <div class="input-box">
-
-      <span class="icon">
-        🪪
-      </span>
-
-      <input
-        type="text"
-        name="cpf"
-        placeholder="CPF"
-        required
-        class="input"
-      >
-
-    </div>
-
-    <div class="input-box">
-
-      <span class="icon">
-        📞
-      </span>
-
-      <input
-        type="tel"
-        name="telefone"
-        placeholder="Telefone"
-        required
-        class="input"
-      >
-
-    </div>
-
-    <div class="input-box">
-
-      <span class="icon">
-        🏪
-      </span>
-
-      <input
-        type="text"
-        name="loja"
-        placeholder="Loja onde comprou"
-        required
-        class="input"
-      >
-
-    </div>
-
-    <button
-      type="submit"
-      class="botao"
-    >
-      GERAR VOUCHER
-    </button>
-
-  </form>
-
-  <div class="rodape">
-    🔒 Seus dados estão seguros conosco.
-  </div>
+  <p style="
+    margin-top:15px;
+    font-size:14px;
+    color:#666;
+  ">
+    QR exclusivo para validação do parceiro
+  </p>
 
 </div>
 
@@ -1095,206 +1192,6 @@ ${Array.from({length:50}).map(() => `
 
 </html>
 
-  `);
-
-}
-
-    // =====================================
-    // NÃO PREMIADO
-    // =====================================
-
-    return res.send(`
-
-      <html>
-
-      <body style="
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg,#d50000,#ff1744);
-        font-family:Arial;
-      ">
-
-        <div style="
-          background:white;
-          border-radius:20px;
-          padding:30px;
-          width:90%;
-          max-width:350px;
-          text-align:center;
-          box-shadow:0 10px 30px rgba(0,0,0,0.2);
-        ">
-
-          <h1>😢</h1>
-
-          <h2 style="color:#d50000;">
-            Não foi dessa vez
-          </h2>
-
-          <p>
-            Continue participando!
-          </p>
-
-        </div>
-
-      </body>
-
-      </html>
-
-    `);
-
-  } catch (err) {
-
-    console.error(err);
-
-    res.send('Erro no servidor');
-
-  }
-
-});
-
-/* =========================================
-   GERAR VOUCHER
-========================================= */
-app.post('/gerar-voucher/:code', async (req, res) => {
-
-  const { code } = req.params;
-
-  const {
-    nome,
-    cpf,
-    loja
-  } = req.body;
-
-  try {
-
-    const result = await db.query(
-      'SELECT * FROM qrcodes WHERE code = $1',
-      [code]
-    );
-
-    if (result.rows.length === 0) {
-
-      return res.send('Código inválido');
-
-    }
-
-    const qr = result.rows[0];
-
-    if (qr.voucher) {
-
-      return res.send(`
-        <h1>
-          Voucher já gerado:
-          ${qr.voucher}
-        </h1>
-      `);
-
-    }
-
-    const voucher =
-      'VCHR-' +
-      Math.random()
-        .toString(36)
-        .substring(2,8)
-        .toUpperCase();
-
-    await db.query(
-      `
-      UPDATE qrcodes
-      SET
-        nome = $1,
-        cpf = $2,
-        loja_compra = $3,
-        voucher = $4
-      WHERE code = $5
-      `,
-      [
-        nome,
-        cpf,
-        loja,
-        voucher,
-        code
-      ]
-    );
-
-    const qrValidacao =
-      await QRCode.toDataURL(
-        `${BASE_URL}/admin-validar/${voucher}`
-      );
-
-    res.send(`
-      <html>
-
-      <body style="
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:#f2f2f2;
-        font-family:Arial;
-      ">
-
-        <div style="
-          background:white;
-          padding:30px;
-          border-radius:20px;
-          text-align:center;
-          max-width:400px;
-          box-shadow:0 10px 30px rgba(0,0,0,0.2);
-        ">
-
-	<img
-  			src="/logo.png"
-  			style="
-    			width:140px;
-    			display:block;
-    			margin:0 auto 20px auto;
-  "
->
-          <h1>🎉 Voucher Gerado</h1>
-
-          <h2>${qr.descricao_premio}</h2>
-
-          <p>
-            Seu código de resgate:
-          </p>
-
-          <h1 style="
-            color:#0d47a1;
-          ">
-            ${voucher}
-          </h1>
-
-          <p>
-            Apresente este voucher
-            no ponto de troca.
-          </p>
-
-          <img
-            src="${qrValidacao}"
-            style="
-              width:220px;
-              margin-top:20px;
-            "
-          >
-
-          <p style="
-            margin-top:15px ;
-            font-size:14px;
-            color:#666;
-          ">
-            QR exclusivo para validação do parceiro
-          </p>
-
-        </div>
-
-      </body>
-
-      </html>
     `);
 
   } catch (err) {
