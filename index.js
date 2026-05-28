@@ -678,14 +678,32 @@ body{
 
 .input-box{
 
+  position:relative;
+
   margin-top:8px;
+}
+
+.icon{
+
+  position:absolute;
+
+  left:14px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  font-size:16px;
+
+  color:#666;
+
+  z-index:2;
 }
 
 .input{
 
   width:100%;
 
-  padding:14px;
+  padding:14px 14px 14px 44px;
 
   border-radius:14px;
 
@@ -810,7 +828,7 @@ body{
 
     <div class="input-box">
 
-     <span class="icon">
+      <span class="icon">
         📞
       </span>
 
@@ -826,7 +844,7 @@ body{
 
     <div class="input-box">
 
-	<span class="icon">
+      <span class="icon">
         📧
       </span>
 
