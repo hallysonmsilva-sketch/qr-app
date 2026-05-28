@@ -651,7 +651,7 @@ body{
 
   align-items:flex-start;
 
-  padding:20px 0;
+  padding:8px 0;
 
   background:
     linear-gradient(
@@ -674,7 +674,7 @@ body{
 
   border-radius:30px;
 
-  padding:18px;
+  padding:14px 16px;
 
   text-align:center;
 
@@ -686,7 +686,7 @@ body{
 
   position:relative;
 
-  margin-top:8px;
+  margin-top:6px;
 }
 
 .icon{
@@ -733,7 +733,7 @@ body{
 
   width:100%;
 
-  margin-top:16px;
+  margin-top:10px;
 
   padding:15px;
 
@@ -771,7 +771,7 @@ body{
 
       display:block;
 
-      margin:0 auto 8px auto;
+      margin:0 auto 2px auto;
     "
   >
 
@@ -789,8 +789,8 @@ body{
   >
 
   <p style="
-    margin-top:4px;
-    margin-bottom:10px;
+    margin-top:0;
+    margin-bottom:6px;
 
     color:#555;
 
@@ -961,7 +961,7 @@ app.post('/verificar-premio/:code', async (req, res) => {
         display:flex;
         justify-content:center;
         align-items:center;
-	padding:20px 0;
+	padding:8px 0;
         background:linear-gradient(135deg,#d50000,#ff1744);
         font-family:Arial;
       ">
