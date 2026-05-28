@@ -752,7 +752,7 @@ body{
  <img
   src="/titulo.png"
   style="
-    width:180px;
+    width:280px;
 
     display:block;
 
