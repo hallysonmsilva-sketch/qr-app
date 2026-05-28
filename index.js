@@ -646,8 +646,12 @@ body{
   min-height:100vh;
 
   display:flex;
+
   justify-content:center;
-  align-items:center;
+
+  align-items:flex-start;
+
+  padding:20px 0;
 
   background:
     linear-gradient(
@@ -657,6 +661,8 @@ body{
     );
 
   font-family:Arial,sans-serif;
+
+  overflow-y:auto;
 }
 
 .card{
@@ -668,7 +674,7 @@ body{
 
   border-radius:30px;
 
-  padding:25px;
+  padding:18px;
 
   text-align:center;
 
@@ -727,7 +733,7 @@ body{
 
   width:100%;
 
-  margin-top:20px;
+  margin-top:16px;
 
   padding:15px;
 
@@ -761,33 +767,38 @@ body{
   <img
     src="/logo.png"
     style="
-      width:140px;
+      width:120px;
+
       display:block;
-      margin:0 auto 20px auto;
+
+      margin:0 auto 8px auto;
     "
   >
 
-<img
-  src="/titulo.png"
-  style="
-    width:280px;
+  <img
+    src="/titulo.png"
+    style="
+      width:100%;
 
-    display:block;
+      max-width:280px;
 
-    margin:0 auto 4px auto;
-  "
->
+      display:block;
+
+      margin:0 auto 4px auto;
+    "
+  >
+
   <p style="
-  margin-top:4px;
-  margin-bottom:10px;
+    margin-top:4px;
+    margin-bottom:10px;
 
-  color:#555;
+    color:#555;
 
-  font-size:15px;
-">
-  Preencha seus dados para
-  verificar seu prêmio
-</p>
+    font-size:15px;
+  ">
+    Preencha seus dados para
+    verificar seu prêmio
+  </p>
 
   <form
     method="POST"
@@ -796,7 +807,7 @@ body{
 
     <div class="input-box">
 
- <span class="icon">
+      <span class="icon">
         🪪
       </span>
 
@@ -812,11 +823,11 @@ body{
 
     <div class="input-box">
 
-	<span class="icon">
+      <span class="icon">
         👤
       </span>
 
-     <input
+      <input
         type="text"
         name="nome"
         placeholder="Nome completo"
@@ -849,8 +860,8 @@ body{
       </span>
 
       <input
-        type="text"
-        name="e-mail"
+        type="email"
+        name="email"
         placeholder="E-mail"
         required
         class="input"
