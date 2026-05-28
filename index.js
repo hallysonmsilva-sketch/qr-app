@@ -756,8 +756,6 @@ body{
 
     display:block;
 
-    margin:0 auto 4px auto;
-  "
 >
 
   <p style="
