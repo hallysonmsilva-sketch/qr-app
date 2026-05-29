@@ -1069,11 +1069,9 @@ body{
 
   justify-content:center;
 
-  align-items:flex-start;
+  align-items:center;
 
-  padding:20px 10px;
-
-  overflow-y:auto;
+  padding:20px 0;
 
   background:
     linear-gradient(
@@ -1117,7 +1115,7 @@ body{
 
 .card{
 
-  position:relative;
+  position:center;
 
   z-index:2;
 
