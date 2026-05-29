@@ -814,24 +814,6 @@ body{
   action="/verificar-premio/${qr.code}"
 >
 
-</form>
-
-<div style="
-  margin-top:18px;
-
-  color:#555;
-
-  font-size:13px;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  gap:6px;
-">
-
   <span>
     🔒
   </span>
@@ -916,6 +898,22 @@ body{
     </button>
 
   </form>
+
+<div style="
+  margin-top:18px;
+
+  color:#555;
+
+  font-size:13px;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:6px;
+">
 
 </div>
 
