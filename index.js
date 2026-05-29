@@ -1069,7 +1069,7 @@ body{
 
   justify-content:center;
 
-  align-items:center;
+  align-items:flex-start;
 
   padding:20px 10px;
 
@@ -1168,7 +1168,7 @@ body{
 
 <body>
 
-${Array.from({length:25}).map(() => `
+${Array.from({length:50}).map(() => `
 
 <div
   class="confete"
