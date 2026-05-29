@@ -686,7 +686,7 @@ body{
 
   position:relative;
 
-  margin-top:8px;
+  margin-top:10px;
 }
 
 .icon{
@@ -782,13 +782,13 @@ body{
 
       display:block;
 
-      margin:0 auto -4px auto;
+      margin:0 auto 0px auto;
     "
   >
 
   <p style="
     margin-top:-2px;
-    margin-bottom:12px;
+    margin-bottom:16px;
 
     color:#555;
 
