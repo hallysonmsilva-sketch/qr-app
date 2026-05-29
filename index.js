@@ -814,18 +814,6 @@ body{
   action="/verificar-premio/${qr.code}"
 >
 
-  <span>
-    🔒
-  </span>
-
-  <span>
-    Seus dados estão seguros conosco.
-  </span>
-
-</div>
-
-  >
-
     <div class="input-box">
 
       <span class="icon">
@@ -914,6 +902,14 @@ body{
 
   gap:6px;
 ">
+
+  <span>
+    🔒
+  </span>
+
+  <span>
+    Seus dados estão seguros conosco.
+  </span>
 
 </div>
 
