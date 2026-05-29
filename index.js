@@ -809,9 +809,7 @@ body{
 
     method="POST"
     action="/verificar-premio/${qr.code}"
-<form
-  method="POST"
-  action="/verificar-premio/${qr.code}"
+
 >
 
     <div class="input-box">
@@ -877,6 +875,41 @@ body{
       >
 
     </div>
+
+  <!-- CHECKBOX -->
+
+  <div style="
+    margin-top:14px;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:8px;
+
+    text-align:left;
+
+    font-size:13px;
+
+    color:#555;
+  ">
+
+    <input
+      type="checkbox"
+      required
+      style="
+        margin-top:2px;
+        transform:scale(1.1);
+      "
+    >
+
+    <span>
+      Aceito receber comunicações,
+      ofertas e novidades via
+      WhatsApp e e-mail.
+    </span>
+
+  </div>
 
     <button
       type="submit"
@@ -1273,7 +1306,7 @@ ${Array.from({length:50}).map(() => `
   <h1 style="
     color:#0050d8;
   ">
-    PARABÉNS!
+    Parabéns!
   </h1>
 
   <p>
