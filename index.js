@@ -1069,11 +1069,11 @@ body{
 
   justify-content:center;
 
-  align-items:flex-start;
+  align-items:center;
+
+  padding:20px 10px;
 
   overflow-y:auto;
-
-  padding:12px 0;
 
   background:
     linear-gradient(
@@ -1118,9 +1118,11 @@ body{
 .card{
 
   position:relative;
+
   z-index:2;
 
-  width:90%;
+  width:100%;
+
   max-width:330px;
 
   background:white;
@@ -1134,7 +1136,7 @@ body{
   box-shadow:
     0 15px 40px rgba(0,0,0,.25);
 
-  margin-bottom:12px;
+  margin:auto;
 }
 
 .emoji{
@@ -1166,7 +1168,7 @@ body{
 
 <body>
 
-${Array.from({length:50}).map(() => `
+${Array.from({length:25}).map(() => `
 
 <div
   class="confete"
