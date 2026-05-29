@@ -686,7 +686,7 @@ body{
 
   position:relative;
 
-  margin-top:6px;
+  margin-top:4px;
 }
 
 .icon{
@@ -771,7 +771,7 @@ body{
 
       display:block;
 
-      margin:0 auto 2px auto;
+      margin:0 auto -6px auto;
     "
   >
 
@@ -784,13 +784,13 @@ body{
 
       display:block;
 
-      margin:0 auto 4px auto;
+      margin:0 auto -4px auto;
     "
   >
 
   <p style="
-    margin-top:0;
-    margin-bottom:6px;
+    margin-top:-2px;
+    margin-bottom:4px;;
 
     color:#555;
 
@@ -1066,10 +1066,14 @@ body{
   min-height:100vh;
 
   display:flex;
-  justify-content:center;
-  align-items:center;
 
-  overflow:hidden;
+  justify-content:center;
+
+  align-items:flex-start;
+
+  overflow-y:auto;
+
+  padding:12px 0;
 
   background:
     linear-gradient(
@@ -1117,23 +1121,25 @@ body{
   z-index:2;
 
   width:90%;
-  max-width:340px;
+  max-width:330px;
 
   background:white;
 
-  border-radius:32px;
+  border-radius:26px;
 
- padding:16px 20px;
+  padding:14px;
 
   text-align:center;
 
   box-shadow:
     0 15px 40px rgba(0,0,0,.25);
+
+  margin-bottom:12px;
 }
 
 .emoji{
 
-  font-size:52px;
+  font-size:42px;
 
   animation:pulse 1.5s infinite;
 }
@@ -1239,7 +1245,7 @@ ${Array.from({length:50}).map(() => `
   <img
     src="${qrValidacao}"
     style="
-      width:180px;
+      width:160px;
       margin-top:20px;
     "
   >
@@ -1321,7 +1327,7 @@ app.get('/admin-validar/:voucher', async (req, res) => {
 	<img
   			src="/logo.png"
   			style="
-  		  	width:140px;
+  		  	width:110px;
     			display:block;
     			margin:0 auto 20px auto;
   "
