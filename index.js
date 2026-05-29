@@ -932,22 +932,7 @@ body{
   color:#555;
 ">
 
-  <input
-    type="checkbox"
-    required
-    style="
-      margin-top:2px;
-      transform:scale(1.1);
-    "
-  >
-
-  <span>
-    Aceito receber comunicações,
-    ofertas e novidades via
-    WhatsApp e e-mail.
-  </span>
-
-</div>
+ </div>
 
       VERIFICAR PRÊMIO
     </button>
