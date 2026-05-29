@@ -806,8 +806,42 @@ body{
   </p>
 
   <form
+
     method="POST"
     action="/verificar-premio/${qr.code}"
+<form
+  method="POST"
+  action="/verificar-premio/${qr.code}"
+>
+
+</form>
+
+<div style="
+  margin-top:18px;
+
+  color:#555;
+
+  font-size:13px;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:6px;
+">
+
+  <span>
+    🔒
+  </span>
+
+  <span>
+    Seus dados estão seguros conosco.
+  </span>
+
+</div>
+
   >
 
     <div class="input-box">
