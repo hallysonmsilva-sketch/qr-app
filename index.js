@@ -686,7 +686,7 @@ body{
 
   position:relative;
 
-  margin-top:10px;
+  margin-top:12px;
 }
 
 .icon{
@@ -711,15 +711,17 @@ body{
 
   padding:14px 14px 14px 44px;
 
-  border-radius:14px;
+  border-radius:15px;
 
-  border:2px solid #ddd;
+  border:2px solid #e2e2e2;
 
-  background:#f5f5f5;
+  background:#f3f3f3;
 
   font-size:15px;
 
   outline:none;
+
+  transition:.2s;
 }
 
 .input:focus{
@@ -733,7 +735,7 @@ body{
 
   width:100%;
 
-  margin-top:10px;
+  margin-top:18px;
 
   padding:15px;
 
@@ -754,6 +756,11 @@ body{
   font-weight:bold;
 
   cursor:pointer;
+
+  transition:.2s;
+
+  box-shadow:
+    0 8px 20px rgba(0,102,255,.35);
 }
 
 </style>
@@ -765,35 +772,35 @@ body{
 <div class="card">
 
     <img
-    src="/logo.png"
-    style="
-      width:140px;
-      display:block;
-      margin:0 auto 20px auto;
-    "
-  >
+  src="/logo.png"
+  style="
+    width:140px;
+    display:block;
+    margin:0 auto 8px auto;
+  "
+>
 
-  <img
-    src="/titulo.png"
-    style="
-      width:100%;
+<img
+  src="/titulo.png"
+  style="
+    width:100%;
+    max-width:280px;
 
-      max-width:280px;
+    display:block;
 
-      display:block;
+    margin:0 auto 6px auto;
+  "
+>
 
-      margin:0 auto 0px auto;
-    "
-  >
+ <p style="
+  margin-top:4px;
+  margin-bottom:12px;
 
-  <p style="
-    margin-top:-2px;
-    margin-bottom:16px;
+  color:#555;
 
-    color:#555;
+  font-size:15px;
+">
 
-    font-size:15px;
-  ">
     Preencha seus dados para
     verificar seu prêmio
   </p>
@@ -1069,7 +1076,9 @@ body{
 
   align-items:center;
 
-  padding:20px 0;
+  padding:12px 0;
+
+  overflow-y:auto;
 
   background:
     linear-gradient(
@@ -1113,26 +1122,26 @@ body{
 
 .card{
 
-  position:center;
+  position:relative;
 
   z-index:2;
 
-  width:100%;
+  width:90%;
 
-  max-width:330px;
+  max-width:360px;
 
   background:white;
 
-  border-radius:26px;
+  border-radius:32px;
 
-  padding:14px;
+  padding:22px;
 
   text-align:center;
 
   box-shadow:
     0 15px 40px rgba(0,0,0,.25);
 
-  margin:auto;
+  margin:10px 0;
 }
 
 .emoji{
@@ -1187,13 +1196,13 @@ ${Array.from({length:50}).map(() => `
 <div class="card">
 
     <img
-    src="/logo.png"
-    style="
-      width:140px;
-      display:block;
-      margin:0 auto 20px auto;
-    "
-  >
+  src="/logo.png"
+  style="
+    width:140px;
+    display:block;
+    margin:0 auto 8px auto;
+  "
+>
 
   <div class="emoji">
     🎉
@@ -1322,15 +1331,15 @@ app.get('/admin-validar/:voucher', async (req, res) => {
           text-align:center;
         ">
 
-	  <img
-    src="/logo.png"
-    style="
-      width:140px;
-      display:block;
-      margin:0 auto 20px auto;
-    "
-  >
-
+	<img
+  src="/logo.png"
+  style="
+    width:140px;
+    display:block;
+    margin:0 auto 8px auto;
+  "
+>
+ 
           <h2>Área do Parceiro</h2>
 
           <p>
@@ -1448,11 +1457,11 @@ app.post('/admin-validar/:voucher', async (req, res) => {
         ">
 
 	<img
-  		src="/logo.png"
-  		style="
-    		width:150px;
-    		display:block;
-    		margin:0 auto 20px auto;
+  src="/logo.png"
+  style="
+    width:140px;
+    display:block;
+    margin:0 auto 8px auto;
   "
 >
 
@@ -1613,11 +1622,11 @@ app.post('/resgatar/:voucher', async (req, res) => {
         ">
 
 	<img
-  		 src="/logo.png"
-  		 style="
-    		  width:130px;
-    		  display:block;
-    		 margin:0 auto 20px auto;
+  src="/logo.png"
+  style="
+    width:140px;
+    display:block;
+    margin:0 auto 8px auto;
   "
 >
 
