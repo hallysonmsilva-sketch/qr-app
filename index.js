@@ -764,14 +764,12 @@ body{
 
 <div class="card">
 
-  <img
+    <img
     src="/logo.png"
     style="
-      width:120px;
-
+      width:140px;
       display:block;
-
-      margin:0 auto -6px auto;
+      margin:0 auto 20px auto;
     "
   >
 
@@ -1188,7 +1186,7 @@ ${Array.from({length:50}).map(() => `
 
 <div class="card">
 
-  <img
+    <img
     src="/logo.png"
     style="
       width:140px;
@@ -1204,7 +1202,7 @@ ${Array.from({length:50}).map(() => `
   <h1 style="
     color:#0050d8;
   ">
-    Parabéns!
+    PARABÉNS!
   </h1>
 
   <p>
@@ -1324,14 +1322,14 @@ app.get('/admin-validar/:voucher', async (req, res) => {
           text-align:center;
         ">
 
-	<img
-  			src="/logo.png"
-  			style="
-  		  	width:110px;
-    			display:block;
-    			margin:0 auto 20px auto;
-  "
->
+	  <img
+    src="/logo.png"
+    style="
+      width:140px;
+      display:block;
+      margin:0 auto 20px auto;
+    "
+  >
 
           <h2>Área do Parceiro</h2>
 
